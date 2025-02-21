@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-container {
+    flex: 1;
+    width: 100%;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #F7F9FA;
+    border-top: 1px solid #e1e1e1;
+    width: 100%;
+}
+
+.footer p {
+    margin: 0;
+    color: #575757;
+    font-size: 12px;
+}
+
+.footer a {
+    color: #575757;
+    text-decoration: none;
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    width: 200px;
+    margin-left: 60px;
+}
+
+.top-nav, .user-nav {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    background-color: white;
+}
+
+.top-nav .button-container {
+    display: flex;
+    gap: 10px;
+    transition: opacity 0.3s ease-in-out;
+    visibility: visible;
+}
+
+.top-nav input[type=text] {
+    float: left;
+    padding: 16px;
+    border: none;
+    margin-left: 16px;
+    margin-right: 10px;
+    font-size: 17px;
+    width: 300px;
+    outline: 1px solid black;
+    transition: width 0.3s ease-in-out, margin-right 0.3s ease-in-out;
+}
+
+.top-nav input[type=text]:focus {
+    outline: 2px solid #296ec2;
+    width: 450px;
+    margin-right: -140px;
+}
+
+.top-nav input[type=text]:not(:focus) ~ .button-container {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.top-nav input[type=text]:focus ~ .button-container {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.top-nav button, .user-nav button {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 0px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    height: 100%;
+    line-height: 70px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.top-nav button:hover, .top-nav button.active, .user-nav button:hover, .user-nav button.active {
+    background-color: #173e6e;
+    color: white;
+}
+
+.user-nav {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.user-nav form {
+    margin: 0;
+}
