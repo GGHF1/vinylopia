@@ -55,8 +55,9 @@ php artisan storage:link
 
 ### 7. Create the avatars Folder
 
-After creating the storage link, you may need to create the ```avatars``` folder inside ```public/storage``` and ```storage\app\public``` directories if it doesn't exist.   
-Correct paths should look as follows: ```public/storage/avatars``` and ```storage\app\public\avatars```
+After creating the storage link, you may need to create the ```avatars``` folder inside ```public/storage``` and ```storage/app/public``` directories if it doesn't exist.   
+
+Correct paths should look as follows: ```public/storage/avatars``` and ```storage/app/public/avatars```
 
 ### 8. Generate Application Key
 
