@@ -18,7 +18,10 @@ class Vinyl extends Model
         'style',
         'year',
         'label',
+        'barcode',
+        'release_id',
         'cover',
+        'secondary_cover',
         'LP',
         'feat',
     ];

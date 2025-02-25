@@ -19,7 +19,10 @@ return new class extends Migration
             $table->string('style');
             $table->string('year');
             $table->string('label');
-            $table->string('cover');
+            $table->string('barcode');
+            $table->unsignedBigInteger('release_id');
+            $table->text('cover');
+            $table->text('secondary_cover');
             $table->unsignedBigInteger('LP');
             $table->text('feat');
             $table->timestamps();

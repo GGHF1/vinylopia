@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Vinyl;
 use App\Models\Track;
+use Illuminate\Support\Facades\Http;
 
 class VinylSeeder extends Seeder
 {
@@ -18,32 +19,22 @@ class VinylSeeder extends Seeder
                 'style' => 'Contemporary R&B, Synth-pop, Synthwave',
                 'year' => '2025',
                 'label' => 'XO, Republic Records',
-                'cover' => 'images/vinyls/hut.png',
-                'LP' => 2,
-                'feat' => 'Justice, Anitta, Florence + The Machine, Travis Scott, Future, Playboi Carti, Giorgio Moroder, Lana Del Rey',
+                'barcode' => '602465994759',
+                'release_id' => '33007125',
+                'LP' => 1,
+                'feat' => 'None',
                 'tracks' => [
-                    ['track_number' => 1, 'title' => 'Wake Me Up', 'position' => 'A1', 'duration' => '5:08'],
-                    ['track_number' => 2, 'title' => 'Cry For Me', 'position' => 'A2', 'duration' => '3:44'],
-                    ['track_number' => 3, 'title' => 'I Can\'t Fucking Sing', 'position' => 'A3', 'duration' => '0:12'],
-                    ['track_number' => 4, 'title' => 'São Paulo', 'position' => 'A4', 'duration' => '5:01'],
-                    ['track_number' => 5, 'title' => 'Until We\'re Skin & Bones', 'position' => 'A5', 'duration' => '0:22'],
-                    ['track_number' => 6, 'title' => 'Baptized In Fear', 'position' => 'A6', 'duration' => '3:52'],
-                    ['track_number' => 7, 'title' => 'Open Hearts', 'position' => 'A7', 'duration' => '3:54'],
-                    ['track_number' => 8, 'title' => 'Opening Night', 'position' => 'B1', 'duration' => '1:36'],
-                    ['track_number' => 9, 'title' => 'Reflections Laughing', 'position' => 'B2', 'duration' => '4:51'],
-                    ['track_number' => 10, 'title' => 'Enjoy The Show', 'position' => 'B3', 'duration' => '5:01'],
-                    ['track_number' => 11, 'title' => 'Given Up On Me', 'position' => 'B4', 'duration' => '5:54'],
-                    ['track_number' => 12, 'title' => 'I Can\'t Wait To Get There', 'position' => 'B5', 'duration' => '3:08'],
-                    ['track_number' => 13, 'title' => 'Timeless', 'position' => 'C1', 'duration' => '4:16'],
-                    ['track_number' => 14, 'title' => 'Niagara Falls', 'position' => 'C2', 'duration' => '4:37'],
-                    ['track_number' => 15, 'title' => 'Take Me Back To LA', 'position' => 'C3', 'duration' => '4:13'],
-                    ['track_number' => 16, 'title' => 'Big Sleep', 'position' => 'C4', 'duration' => '3:45'],
-                    ['track_number' => 17, 'title' => 'Give Me Mercy', 'position' => 'C5', 'duration' => '3:36'],
-                    ['track_number' => 18, 'title' => 'Drive', 'position' => 'D1', 'duration' => '3:08'],
-                    ['track_number' => 19, 'title' => 'The Abyss', 'position' => 'D2', 'duration' => '4:42'],
-                    ['track_number' => 20, 'title' => 'Red Terror', 'position' => 'D3', 'duration' => '3:51'],
-                    ['track_number' => 21, 'title' => 'Without a Warning', 'position' => 'D4', 'duration' => '4:57'],
-                    ['track_number' => 22, 'title' => 'Hurry Up Tomorrow', 'position' => 'D5', 'duration' => '4:51'],
+                    ['track_number' => 1, 'title' => 'Without A Warning', 'position' => 'A1', 'duration' => '1:00'],
+                    ['track_number' => 2, 'title' => 'Cry For Me', 'position' => 'A2', 'duration' => '1:00'],
+                    ['track_number' => 3, 'title' => 'São Paulo', 'position' => 'A3', 'duration' => '1:00'],
+                    ['track_number' => 4, 'title' => 'Society', 'position' => 'A4', 'duration' => '1:00'],
+                    ['track_number' => 5, 'title' => 'Take Me Back To LA', 'position' => 'A5', 'duration' => '1:00'],
+                    ['track_number' => 6, 'title' => 'The Abyss', 'position' => 'B1', 'duration' => '1:00'],
+                    ['track_number' => 7, 'title' => 'Open Hearts', 'position' => 'B2', 'duration' => '1:00'],
+                    ['track_number' => 8, 'title' => 'Timeless', 'position' => 'B3', 'duration' => '1:00'],
+                    ['track_number' => 9, 'title' => 'Give Me Mercy', 'position' => 'B4', 'duration' => '1:00'],
+                    ['track_number' => 10, 'title' => 'Runaway', 'position' => 'B5', 'duration' => '1:00'],
+                    ['track_number' => 11, 'title' => 'Red Terror', 'position' => 'B6', 'duration' => '1:00'],
                 ]
 
             ],
@@ -54,7 +45,8 @@ class VinylSeeder extends Seeder
                 'style' => 'Synthwave, New Wave, Pop Rap, Disco, Contemporary R&B, Synth-pop',
                 'year' => '2020',
                 'label' => 'XO, Republic Records',
-                'cover' => 'images/vinyls/after_hours.png',
+                'barcode' => '602508818400',
+                'release_id' => '15961158',
                 'LP' => 2,
                 'feat' => 'None',
                 'tracks' => [
@@ -81,7 +73,8 @@ class VinylSeeder extends Seeder
                 'style' => 'Experimental, Synth-pop, Pop Rap, Contemporary R&B',
                 'year' => '2008',
                 'label' => 'Roc-A-Fella Records',
-                'cover' => 'images/vinyls/808s.png',
+                'barcode' => '602517872813',
+                'release_id' => '1608688',
                 'LP' => 2,
                 'feat' => 'Young Jeezy, Lil Wayne, Kid Cudi, Mr Hudson',
                 'tracks' => [
@@ -106,7 +99,8 @@ class VinylSeeder extends Seeder
                 'style' => 'Pop Rap, Conscious, Contemporary R&B',
                 'year' => '2004',
                 'label' => 'Roc-A-Fella Records, Hustle., Handprint Entertainment',
-                'cover' => 'images/vinyls/college_dropout.png',
+                'barcode' => '602498617410',
+                'release_id' => '233445',
                 'LP' => 2,
                 'feat' => 'Jay-Z, J. Ivy, Syleena Johnson, Talib Kweli, Common, Mos Def, Freeway, The Boys Choir of Harlem, Consequence, Ludacris, GLC',
                 'tracks' => [
@@ -134,7 +128,8 @@ class VinylSeeder extends Seeder
                 'style' => 'Conscious, Pop Rap, Contemporary R&B',
                 'year' => '2005',
                 'label' => 'Roc-A-Fella Records',
-                'cover' => 'images/vinyls/late_registration.png',
+                'barcode' => '602498824047',
+                'release_id' => '530085',
                 'LP' => 2,
                 'feat' => 'Jay-Z, Lupe Fiasco, The Game, Consequence, Adam Levine, Jamie Foxx, Glen "Loco" Williams, Syleena Johnson, Lil Wayne, The Boys Choir of Harlem',
                 'tracks' => [
@@ -166,7 +161,8 @@ class VinylSeeder extends Seeder
                 'style' => 'Contemporary R&B, Pop Rap, Avantgarde',
                 'year' => '2010',
                 'label' => 'Roc-A-Fella Records',
-                'cover' => 'images/vinyls/mbdtf.png',
+                'barcode' => '602527594934',
+                'release_id' => '2606952',
                 'LP' => 3,
                 'feat' => 'Jay-Z, Kid Cudi, Pusha T, Rick Ross, Bon Iver, Raekwon, Nicki Minaj, Elton John, Mike Dean, The-Dream, Alicia Keys, Fergie, Consequence, CyHi the Prynce',
                 'tracks' => [
@@ -188,6 +184,10 @@ class VinylSeeder extends Seeder
         ];
 
         foreach ($vinyls as $vinylData) {
+            $coverImages = $this->fetchCoverImages($vinylData['release_id']);
+            $vinylData['cover'] = $coverImages['primary'];
+            $vinylData['secondary_cover'] = $coverImages['secondary'];
+
             // creates all added vinyls
             $vinyl = Vinyl::create([
                 'title' => $vinylData['title'],
@@ -196,7 +196,10 @@ class VinylSeeder extends Seeder
                 'style' => $vinylData['style'],
                 'year' => $vinylData['year'],
                 'label' => $vinylData['label'],
+                'barcode' => $vinylData['barcode'],
+                'release_id' => $vinylData['release_id'],
                 'cover' => $vinylData['cover'],
+                'secondary_cover' => $vinylData['secondary_cover'],
                 'LP' => $vinylData['LP'],
                 'feat' => $vinylData['feat'],
             ]);
@@ -204,5 +207,36 @@ class VinylSeeder extends Seeder
             // adds tracks to each vinyl
             $vinyl->tracks()->createMany($vinylData['tracks']);
         }
+    }
+
+    private function fetchCoverImages($releaseId)
+    {
+        $response = Http::get("https://api.discogs.com/releases/{$releaseId}");
+
+        if ($response->successful()) {
+            $result = $response->json();
+            $primaryImage = null;
+            $secondaryImages = [];
+
+            if (isset($result['images'])) {
+                foreach ($result['images'] as $image) {
+                    if ($image['type'] === 'primary' && !$primaryImage) {
+                        $primaryImage = $image['uri'];
+                    } elseif ($image['type'] === 'secondary') {
+                        $secondaryImages[] = $image['uri'];
+                    }
+                }
+            }
+
+            return [
+                'primary' => $primaryImage,
+                'secondary' => json_encode($secondaryImages),
+            ];
+        }
+
+        return [
+            'primary' => null,
+            'secondary' => json_encode([]),
+        ];
     }
 }
