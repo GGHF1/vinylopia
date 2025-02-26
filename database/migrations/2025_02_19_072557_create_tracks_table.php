@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('tracks', function (Blueprint $table) {
             $table->id('track_id');
             $table->unsignedBigInteger('vinyl_id');
-            $table->integer('track_number'); // Track number (1, 2, 3, etc.)
-            $table->string('title'); // Track title
-            $table->string('position'); // Position (e.g., A1, A2, B1)
-            $table->string('duration'); // Duration (e.g., 3:45)
+            $table->integer('track_number');
+            $table->string('title'); 
+            $table->string('position'); 
             $table->timestamps();
             $table->foreign('vinyl_id')->references('vinyl_id')->on('vinyls')->onDelete('cascade');
         });

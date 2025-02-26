@@ -15,7 +15,6 @@ class Track extends Model
         'track_number',
         'title',
         'position',
-        'duration',
     ];
 
     public function vinyl()
