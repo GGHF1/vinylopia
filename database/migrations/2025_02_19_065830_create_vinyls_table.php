@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('release_id');
             $table->text('cover');
             $table->text('secondary_cover');
-            $table->unsignedBigInteger('LP');
+            $table->text('format');
             $table->text('feat');
             $table->timestamps();
         });

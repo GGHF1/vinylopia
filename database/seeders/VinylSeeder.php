@@ -19,6 +19,8 @@ class VinylSeeder extends Seeder
             ['release_id' => '233445'],
             ['release_id' => '530085'],
             ['release_id' => '2606952'],
+            ['release_id' => '28993519'],
+            ['release_id' => '15968171']
         ];
 
         foreach ($vinyls as $vinylData) {
@@ -32,7 +34,7 @@ class VinylSeeder extends Seeder
             $vinylData['year'] = $getInfo['year'];
             $vinylData['label'] = $getInfo['label'];
             $vinylData['barcode'] = $getInfo['barcode'];
-            $vinylData['LP'] = $getInfo['LP'];
+            $vinylData['format'] = $getInfo['format'];
             $vinylData['feat'] = $getInfo['feat'];
             $vinylData['tracks'] = $getInfo['tracks'];
             $vinylData['cover'] = $getInfo['primary'];
@@ -51,7 +53,7 @@ class VinylSeeder extends Seeder
                 'release_id' => $vinylData['release_id'],
                 'cover' => $vinylData['cover'],
                 'secondary_cover' => $vinylData['secondary_cover'],
-                'LP' => $vinylData['LP'],
+                'format' => $vinylData['format'],
                 'feat' => $vinylData['feat'],
             ]);
 
@@ -78,34 +80,48 @@ class VinylSeeder extends Seeder
                 }
             }
 
-            // LP quantity
-            $qty = null;
+            // vinyl format
+            $formats_arr = [];
             if (!empty($result['formats'])) {
-                foreach ($result['formats'] as $format) {
-                    if ($format['name'] === 'Vinyl') {
-                        $qty = $format['qty'];
-                        break;
+                foreach ($result['formats'] as $formats) {
+                    if ($formats['name'] === 'Vinyl') {
+                        $formatString = $formats['qty'] . ' ' . implode(', ', $formats['descriptions']);
+                        if (!empty($formats['text'])) {
+                            $formatString .= ', ' . $formats['text'];
+                        }
+                        $formats_arr[] = $formatString;
                     }
                 }
             }
+            $format = implode("\n", $formats_arr);
+    
 
             // tracklist and featuring artists
             $tracks = [];
             $featuringArtists = [];
+            // if main artist is included in tracklist artists, remove it
+            $mainArtist = !empty($result['artists'][0]['name']) ? preg_replace('/\s*\(\d+\)$/', '', $result['artists'][0]['name']) : '';
 
             if (!empty($result['tracklist'])) {
                 foreach ($result['tracklist'] as $track) {
-                    $featuringArtists = [];
                     if (!empty($track['artists'])) {
                         foreach ($track['artists'] as $artist) {
-                            $featuringArtists[] = $artist['name'];
+                            // some vinyls stores artists with parenthesis and number
+                            // $cleanName needed to remove parenthesis after artist name
+                            $cleanName = preg_replace('/\s*\(\d+\)$/', '', $artist['name']); 
+                            if ($cleanName !== $mainArtist) { 
+                                $featuringArtists[] = $cleanName;
+                            }
                         }
                     }
                     
                     if (!empty($track['extraartists'])) {
                         foreach ($track['extraartists'] as $extraArtist) {
                             if (isset($extraArtist['role']) && stripos($extraArtist['role'], 'Featuring') === 0) {
-                                $featuringArtists[] = $extraArtist['name'];
+                                $cleanName = preg_replace('/\s*\(\d+\)$/', '', $extraArtist['name']);
+                                if ($cleanName !== $mainArtist) { 
+                                    $featuringArtists[] = $cleanName;
+                                }
                             }
                         }
                     }
@@ -147,7 +163,7 @@ class VinylSeeder extends Seeder
                 'year' => $result['year'] ?? null,
                 'label' => implode(', ', array_column($result['labels'], 'name') ?? []),
                 'barcode' => $barcode,
-                'LP' => $qty,
+                'format' => $format,
                 'feat' => $feat,
                 'tracks' => $tracks, 
                 'primary' => $primaryImage,
@@ -163,7 +179,7 @@ class VinylSeeder extends Seeder
             'year' => null,
             'label' => 'Unknown',
             'barcode' => null,
-            'LP' => null,
+            'format' => null,
             'feat' => 'None',
             'tracks' => [],
             'primary' => null,

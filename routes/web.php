@@ -21,5 +21,5 @@ Route::post('/profile/avatar', [UserController::class, 'uploadAvatar'])->name('a
 Route::post('/profile/avatar/delete', [UserController::class, 'deleteAvatar'])->name('avatar.delete');
 
 Route::get('/marketplace', [MainController::class, 'marketplace'])->name('marketplace');
-Route::get('/release/{vinyl_id}', [MainController::class, 'show'])->name('vinyl.details');
-
+Route::get('/marketplace/release/{vinyl_id}', [MainController::class, 'vinylrelease'])->name('vinyl.release');
+Route::get('/artist', [MainController::class, 'artist'])->name('artist.show');

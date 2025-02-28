@@ -22,7 +22,7 @@ class Vinyl extends Model
         'release_id',
         'cover',
         'secondary_cover',
-        'LP',
+        'format',
         'feat',
     ];
 

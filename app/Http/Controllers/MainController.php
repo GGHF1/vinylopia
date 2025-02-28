@@ -17,10 +17,15 @@ class MainController extends Controller
         return view('marketplace', compact('vinyls'));
     }
 
-    public function show($vinyl_id)
+    public function vinylrelease($vinyl_id)
     {
         $vinyl = Vinyl::with('tracks')->findOrFail($vinyl_id);
-        return view('vinyl.details', compact('vinyl'));
+        return view('release', compact('vinyl'));
+    }
+
+    public function artist()
+    {
+        return view('artist');
     }
 
 }
