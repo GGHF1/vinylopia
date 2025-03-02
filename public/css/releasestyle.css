@@ -3,32 +3,36 @@ body {
 }
 
 .release-container {
-    width: 80%;
-    max-width: 900px;
+    width: 100%;
+    max-width: 1200px;
     margin: 40px auto;
     background: #ffffff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.vinyl-header {
-    display: flex;
+
+.release-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
     gap: 20px;
-    align-items: center;
+    align-items: start;
+    
 }
 
 .vinyl-cover-container {
-    position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     cursor: pointer;
 }
 
 .vinyl-cover {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: auto;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease-in-out;
 }
 
 .vinyl-cover:hover + .moreImages {
@@ -51,24 +55,29 @@ body {
 
 .vinyl-info h1 {
     color: #000000;
-    margin: 0 0 10px;
-    font-size: 24px;
+    font-size: 22px;
+    margin-bottom: 10px;
+    margin-left: 5px;
 }
 
-.vinyl-info a{
-    text-decoration: none;
-    color: #2653D9;
+.vinyl-info-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.vinyl-info a:hover{
-    text-decoration: underline;
-    color: #0077BB;
-}
-
-.vinyl-info p {
-    margin: 5px 0;
+.vinyl-info-table td {
+    padding: 5px;
+    vertical-align: top;
     font-size: 14px;
 }
+
+.vinyl-info-table td:first-child {
+    font-weight: bold;
+    white-space: nowrap;
+    width: 100px;
+    font-size: 14px;
+}
+
 .secondary-images {
     display: flex;
     gap: 10px;
@@ -98,27 +107,42 @@ h2 {
     background: #205698;
 }
 .purchase-section {
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     text-align: center;
-}
-.buy-button, .wishlist-button {
-    background: #296ec2;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-    transition: background 0.3s;
-}
-.buy-button:hover {
-    background: #205698;
-}
-.wishlist-button:hover {
-    background: #173e6e;
+    padding: 10px;
 }
 
+.buy-button, .wishlist-button, .spotify-button {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 150px;
+    height: 40px;
+    margin: 0 auto;
+}
+
+.buy-button {
+    background: #28a745;
+    color: white;
+}
+
+.wishlist-button {
+    background: #007bff;
+    color: white;
+}
+
+.spotify-button {
+    background-color: #1DB954;
+    color: white;
+}
+
+.spotify-button:hover {
+    background-color: #1ed760;
+}
 
 .modal {
     display: none;
@@ -262,3 +286,16 @@ h2 {
 .prev:hover, .next:hover {
     color: rgba(195, 195, 195, 0.8);
 }
+
+
+@media (max-width: 768px) {
+    .release-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .vinyl-info {
+        text-align: center;
+    }
+}
+

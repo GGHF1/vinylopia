@@ -6,9 +6,17 @@ use Illuminate\Database\Seeder;
 use App\Models\Vinyl;
 use App\Models\Track;
 use Illuminate\Support\Facades\Http;
+use App\Services\SpotifyService;
 
 class VinylSeeder extends Seeder
 {
+    protected $spotifyService;
+
+    public function __construct(SpotifyService $spotifyService)
+    {
+        $this->spotifyService = $spotifyService;
+    }
+
     public function run()
     {
         $vinyls = [
@@ -20,12 +28,32 @@ class VinylSeeder extends Seeder
             ['release_id' => '530085'],
             ['release_id' => '2606952'],
             ['release_id' => '28993519'],
-            ['release_id' => '15968171']
+            ['release_id' => '15968171'],
+            ['release_id' => '9778270'],
+            ['release_id' => '30423881'],
+            ['release_id' => '11208487'],
+            ['release_id' => '12511980'],
+            ['release_id' => '23000420'],
+            ['release_id' => '12773291'],
+            ['release_id' => '7435327'],
+            ['release_id' => '9403008'],
+            ['release_id' => '27840414'],
+            ['release_id' => '9258642'],
+            ['release_id' => '12802012'],
+            ['release_id' => '1044164'],
+            ['release_id' => '484030'],
+            ['release_id' => '20587606'],
+            ['release_id' => '7266689'],
+            ['release_id' => '31902511'],
+            ['release_id' => '7810100'],
+            ['release_id' => '5709533'],
+            
         ];
 
         foreach ($vinyls as $vinylData) {
 
             $getInfo = $this->getVinylInfo($vinylData['release_id']);
+            $spotifyLink = $this->spotifyService->getAlbumUrl($getInfo['title'], $getInfo['artist']);
 
             $vinylData['artist'] = $getInfo['artist'];
             $vinylData['title'] = $getInfo['title'];
@@ -39,6 +67,7 @@ class VinylSeeder extends Seeder
             $vinylData['tracks'] = $getInfo['tracks'];
             $vinylData['cover'] = $getInfo['primary'];
             $vinylData['secondary_cover'] = $getInfo['secondary'];
+            $vinylData['spotify_link'] = $spotifyLink;
             
 
             // creates all added vinyls
@@ -55,6 +84,7 @@ class VinylSeeder extends Seeder
                 'secondary_cover' => $vinylData['secondary_cover'],
                 'format' => $vinylData['format'],
                 'feat' => $vinylData['feat'],
+                'spotify_link' => $vinylData['spotify_link'],
             ]);
 
             // adds tracks to each vinyl

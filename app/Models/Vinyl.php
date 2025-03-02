@@ -24,6 +24,7 @@ class Vinyl extends Model
         'secondary_cover',
         'format',
         'feat',
+        'spotify_link',
     ];
 
     public function tracks()

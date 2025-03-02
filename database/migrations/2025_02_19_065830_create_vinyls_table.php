@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text('secondary_cover');
             $table->text('format');
             $table->text('feat');
+            $table->text('spotify_link');
             $table->timestamps();
         });
     }
