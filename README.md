@@ -3,14 +3,13 @@
 Vinylopia is a community-driven marketplace designed for vinyl collectors, traders, and music lovers. Inspired by Discogs, Vinylopia allows users to browse, list, and purchase vinyl records directly from one another. Whether you’re hunting for rare editions, limited releases, or simply looking to expand your collection, Vinylopia brings together a passionate community of music enthusiasts to buy, sell, and trade vinyl records.
 
 ## Status
-**Project Status**: Active
+**Project Status**: Active.
 
 ## Installation Steps
 
 ### 1. Clone/Download the repository
 
 Clone or Download as ZIP this repository to your PC.
-[Go to Step 10: Register for Spotify Developer Account](#register-for-spotify-developer-account-and-create-an-application)
 
 ### 2. Install PHP/SQL/Composer
 
@@ -51,19 +50,19 @@ To integrate with the Spotify API, you'll need to create a Spotify Developer acc
    - Log in with your existing Spotify account or register a new account, if you don't have one.
    - After logging in, you will be redirected to Spotify Developer Dashboard.
 
-2. Create a New Application
+2. Create a New Application.
    - On the Developer Dashboard, click on the "Create App" button.
    - A form will appear where you need to provide the following details:
      1) App name;
      2) App Description;
      3) Website (optional);
-     4) Redirect URI (for example: http://127.0.0.1:8000/).
-     5) In a section "Which API/SDKs are you planning to use?" click on "Web API"
+     4) Redirect URI (for example: http://127.0.0.1:8000/);
+     5) In a section "Which API/SDKs are you planning to use?" click on "Web API".
    - After filling out the details, click "Save" button to create the application.
 
-3. Obtain Your Client ID and Client Secret
+3. Obtain Your Client ID and Client Secret.
    - After creating the application, you will be redirected to the application page where you need to click on "Settings" button.
-   - On the settings page you will see your "Client ID" and "View client secret" button, which opens "Client secret"
+   - On the settings page you will see your "Client ID" and "View client secret" button, which opens "Client secret".
 
 4. Add the following lines to your `.env` file, replacing the placeholders with your actual **Spotify Client credentials**. 
 ```
@@ -73,7 +72,7 @@ SPOTIFY_CLIENT_SECRET="your_secret"
 
 ### 5. Install the Necessary Dependencies
 
-Enter this command to install all necessary dependencies
+Enter this command to install all necessary dependencies:
 ```bash
 composer install
 ```
