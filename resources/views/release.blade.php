@@ -4,6 +4,8 @@
 
 @section('head')
     <link rel="stylesheet" href="{{ asset('css/releasestyle.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
 
 @section('content')
@@ -63,7 +65,7 @@
                 <button class="buy-button">Buy Now</button>
                 <button class="wishlist-button">Add to Wishlist</button>
                 <a href="{{ $vinyl->spotify_link }}" target="_blank">
-                    <button class="spotify-button">Open in Spotify</button>
+                    <i class="fa-brands fa-spotify"></i>
                 </a>
             </div>
         </div>

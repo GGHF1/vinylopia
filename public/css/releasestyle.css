@@ -114,7 +114,7 @@ h2 {
     padding: 10px;
 }
 
-.buy-button, .wishlist-button, .spotify-button {
+.buy-button, .wishlist-button {
     padding: 10px;
     font-size: 16px;
     border: none;
@@ -135,13 +135,13 @@ h2 {
     color: white;
 }
 
-.spotify-button {
-    background-color: #1DB954;
-    color: white;
+.fa-spotify {
+    color: #1ed760;
+    font-size: 50px;
 }
 
-.spotify-button:hover {
-    background-color: #1ed760;
+.fa-spotify:hover {
+    color: #49dc7d;
 }
 
 .modal {

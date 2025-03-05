@@ -20,6 +20,7 @@ class VinylSeeder extends Seeder
     public function run()
     {
         $vinyls = [
+            
             ['release_id' => '33007125'],
             ['release_id' => '15961158'],
             ['release_id' => '1608688'],
@@ -89,6 +90,7 @@ class VinylSeeder extends Seeder
 
             // adds tracks to each vinyl
             $vinyl->tracks()->createMany($vinylData['tracks']);
+            sleep(1);
         }
     }
 
@@ -186,7 +188,7 @@ class VinylSeeder extends Seeder
             $feat = !empty($featuringArtists) ? implode(', ', $featuringArtists) : 'None';
 
             return [
-                'artist' => $result['artists'][0]['name'] ?? 'Unknown Artist',
+                'artist' => preg_replace('/\s*\(\d+\)$/', '', $result['artists'][0]['name']) ?? 'Unknown Artist',
                 'title' => $result['title'] ?? 'Unknown Title',
                 'genre' => implode(', ', $result['genres'] ?? []),
                 'style' => implode(', ', $result['styles'] ?? []),
@@ -206,7 +208,7 @@ class VinylSeeder extends Seeder
             'title' => 'Unknown Title',
             'genre' => 'Unknown',
             'style' => 'Unknown',
-            'year' => null,
+            'year' => 'Unknown year',
             'label' => 'Unknown',
             'barcode' => null,
             'format' => null,

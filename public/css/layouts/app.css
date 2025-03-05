@@ -57,11 +57,11 @@ html, body {
 
 .logo {
     width: 200px;
-    margin-left: 60px;
+    margin-right: 20px;
 }
 
 .top-nav, .user-nav {
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -80,30 +80,15 @@ html, body {
     float: left;
     padding: 16px;
     border: none;
-    margin-left: 16px;
     margin-right: 10px;
     font-size: 17px;
-    width: 300px;
+    width: 400px;
     outline: 1px solid black;
-    transition: width 0.3s ease-in-out, margin-right 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out;
 }
 
 .top-nav input[type=text]:focus {
     outline: 2px solid #296ec2;
-    width: 450px;
-    margin-right: -140px;
-}
-
-.top-nav input[type=text]:not(:focus) ~ .button-container {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 0.3s ease-in-out;
-}
-
-.top-nav input[type=text]:focus ~ .button-container {
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
 }
 
 .top-nav button, .user-nav button {
@@ -134,4 +119,64 @@ html, body {
 
 .user-nav form {
     margin: 0;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+#search-results {
+    position: absolute;
+    top: 62px; 
+    width: 400px;
+    background: white;
+    outline: 1px solid black;
+    max-height: 250px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#search-results .dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s ease-in-out;
+}
+
+#search-results .dropdown-item:hover {
+    background: #f0f0f0;
+}
+
+#search-results .dropdown-item:last-child {
+    border-bottom: none;
+}
+
+#search-results .dropdown-cover {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+#search-results .dropdown-info {
+    display: flex;
+    flex-direction: column;
+}
+
+#search-results .dropdown-artist {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#search-results .dropdown-title {
+    font-size: 14px;
+    color: #666;
 }

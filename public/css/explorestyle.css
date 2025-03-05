@@ -1,0 +1,62 @@
+body {
+    background-color: #0e2644 !important;
+}
+
+.marketplace-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+.vinyl-item, .search-text {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    display: flex;
+    transition: transform 0.2s;
+}
+
+.vinyl-cover {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.vinyl-cover:hover {
+    transform: scale(1.01);
+    cursor: pointer;
+}
+
+.text-container {
+    flex: 1;
+}
+
+.vinyl-item h2 {
+    font-size: 18px;
+    color: #205698;
+    margin: 0 0 10px;
+}
+
+.vinyl-item h2 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.vinyl-item p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.vinyl-item p strong {
+    color: #333;
+}

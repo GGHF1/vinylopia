@@ -20,6 +20,10 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::post('/profile/avatar', [UserController::class, 'uploadAvatar'])->name('avatar.upload');
 Route::post('/profile/avatar/delete', [UserController::class, 'deleteAvatar'])->name('avatar.delete');
 
+Route::get('/explore', [MainController::class, 'explore'])->name('explore');
+Route::get('/explore/release/{vinyl_id}', [MainController::class, 'vinylrelease'])->name('vinyl.release');
+Route::get('/explore/search', [MainController::class, 'exploreSearch'])->name('explore.search');
+
 Route::get('/marketplace', [MainController::class, 'marketplace'])->name('marketplace');
-Route::get('/marketplace/release/{vinyl_id}', [MainController::class, 'vinylrelease'])->name('vinyl.release');
+
 Route::get('/artist', [MainController::class, 'artist'])->name('artist.show');

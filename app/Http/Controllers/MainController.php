@@ -12,9 +12,28 @@ class MainController extends Controller
         return view('home');
     }
 
+    // Logic will be changed soon
+    // Explore - all vinyls released
+    // Marketplace - all vinyls for sale by users
+    public function explore(Request $request) {
+        $vinyls = Vinyl::all();
+        return view('explore', compact('vinyls'));
+    }
+
+    public function exploreSearch(Request $request){
+
+        $query = $request->input('q');
+        $vinyls = Vinyl::when($query, function ($queryBuilder) use ($query) {
+            return $queryBuilder->where('title', 'like', "%{$query}%")
+                                ->orWhere('artist', 'like', "%{$query}%");
+        })->get();
+        return view('explore', compact('vinyls', 'query'));
+    }
+
+
     public function marketplace() {
         $vinyls = Vinyl::all();
-        return view('marketplace', compact('vinyls'));
+        return view('explore', compact('vinyls'));
     }
 
     public function vinylrelease($vinyl_id)
