@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('format');
             $table->text('feat');
             $table->text('spotify_link');
+            $table->text('itunes_link');
             $table->timestamps();
         });
     }

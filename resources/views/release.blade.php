@@ -67,6 +67,9 @@
                 <a href="{{ $vinyl->spotify_link }}" target="_blank">
                     <i class="fa-brands fa-spotify"></i>
                 </a>
+                <a href="{{ $vinyl->itunes_link }}" target="_blank">
+                    <i class="fa-brands fa-itunes-note"></i>
+                </a>
             </div>
         </div>
 

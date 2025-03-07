@@ -7,14 +7,17 @@ use App\Models\Vinyl;
 use App\Models\Track;
 use Illuminate\Support\Facades\Http;
 use App\Services\SpotifyService;
+use App\Services\iTunesService;
 
 class VinylSeeder extends Seeder
 {
     protected $spotifyService;
+    protected $iTunesService;
 
-    public function __construct(SpotifyService $spotifyService)
+    public function __construct(SpotifyService $spotifyService, iTunesService $iTunesService)
     {
         $this->spotifyService = $spotifyService;
+        $this->iTunesService = $iTunesService;
     }
 
     public function run()
@@ -55,7 +58,7 @@ class VinylSeeder extends Seeder
 
             $getInfo = $this->getVinylInfo($vinylData['release_id']);
             $spotifyLink = $this->spotifyService->getAlbumUrl($getInfo['title'], $getInfo['artist']);
-
+            $iTunesLink = $this->iTunesService->getiTunesUrl($getInfo['title'], $getInfo['artist']);
             $vinylData['artist'] = $getInfo['artist'];
             $vinylData['title'] = $getInfo['title'];
             $vinylData['genre'] = $getInfo['genre'];
@@ -69,6 +72,7 @@ class VinylSeeder extends Seeder
             $vinylData['cover'] = $getInfo['primary'];
             $vinylData['secondary_cover'] = $getInfo['secondary'];
             $vinylData['spotify_link'] = $spotifyLink;
+            $vinylData['itunes_link'] = $iTunesLink;
             
 
             // creates all added vinyls
@@ -86,11 +90,13 @@ class VinylSeeder extends Seeder
                 'format' => $vinylData['format'],
                 'feat' => $vinylData['feat'],
                 'spotify_link' => $vinylData['spotify_link'],
+                'itunes_link' => $vinylData['itunes_link'],
+
             ]);
 
             // adds tracks to each vinyl
             $vinyl->tracks()->createMany($vinylData['tracks']);
-            sleep(1);
+            sleep(0.5);
         }
     }
 
