@@ -9,6 +9,11 @@
 @section('content')
 
     <div class="marketplace-container">
+        <div class="buttons-container">
+            <button class="sort-btn">Sort</button>
+            <button class="filter-btn">Filter</button>
+            <button class="scan-btn" id="start-scan">Barcode Scanner</button>
+        </div>
         @if (isset($query))
             <div class="search-text">
                 <h2>Search results for "{{ $query }}"</h2>
@@ -46,5 +51,100 @@
             @endforeach
         @endif
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <div id="barcodeModal" class="video-modal">
+        <div class="video-modal-content">
+            <span class="video-close" onclick="closeBarcodeModal()">&times;</span>
+            <div class="video-container">
+                <video id="barcode-scanner" autoplay></video>
+                <div class="scan-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let vinylRelease = JSON.parse("{!! addslashes(json_encode($vinylRelease)) !!}");
+        document.getElementById('start-scan').addEventListener('click', function () {
+            openBarcodeModal();
+
+            let videoElement = document.getElementById('barcode-scanner');
+
+            /* 
+            quagga doesnt support outputting video img 
+            so we need to use the video element directly
+            */
+            navigator.mediaDevices.getUserMedia({
+                video: { facingMode: "environment" }
+            })
+            .then((stream) => {
+                videoElement.srcObject = stream;
+                videoElement.play();
+            })
+            .catch((err) => {
+                alert("Failed to access the camera. Please check your permissions.");
+                closeBarcodeModal();
+            });
+
+            Quagga.init({
+                inputStream: {
+                    type: "LiveStream",
+                    target: videoElement 
+                },
+                decoder: {
+                    readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader"]
+                }
+            }, function (err) {
+                if (err) {
+                    alert("Failed to initialize barcode scanner.");
+                    closeBarcodeModal();
+                    return;
+                }
+                Quagga.start();
+            });
+
+            Quagga.onDetected(function (result) {
+                let barcode = result.codeResult.code;
+                console.log("Barcode detected: ", barcode);
+                let vinyl = vinylRelease.find(v => {
+                    let storedBarcode = v.barcode;
+
+                    // If the stored barcode doesn't start with '0', add a zero
+                    if (!storedBarcode.startsWith('0')) {
+                        storedBarcode = `0${storedBarcode}`;
+                    }
+
+                    // Match the modified stored barcode with the scanned barcode
+                    return storedBarcode === barcode;
+                });
+                if (vinyl) {
+                    window.location.href = `http://127.0.0.1:8000/explore/release/${vinyl.vinyl_id}`;
+                } else {
+                    console.log("No vinyl found with this barcode.");
+                    alert("No vinyl found with this barcode.");
+                }
+                Quagga.stop();
+                closeBarcodeModal();
+            });
+        });
+
+        function openBarcodeModal() {
+                    document.getElementById('barcodeModal').style.display = 'block';
+                }
+
+        function closeBarcodeModal() {
+            document.getElementById('barcodeModal').style.display = 'none';
+            Quagga.stop();
+
+            let videoElement = document.getElementById('barcode-scanner');
+            let stream = videoElement.srcObject;
+            if (stream) {
+                let tracks = stream.getTracks();
+                tracks.forEach(track => track.stop());
+            }
+            videoElement.srcObject = null; 
+        }
+
+    </script>
 
 @endsection

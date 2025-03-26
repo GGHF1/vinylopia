@@ -24,38 +24,43 @@ class VinylSeeder extends Seeder
     {
         $vinyls = [
             
-            ['release_id' => '33007125'],
-            ['release_id' => '15961158'],
-            ['release_id' => '1608688'],
-            ['release_id' => '28970116'],
-            ['release_id' => '233445'],
-            ['release_id' => '530085'],
-            ['release_id' => '2606952'],
-            ['release_id' => '28993519'],
-            ['release_id' => '15968171'],
-            ['release_id' => '9778270'],
-            ['release_id' => '30423881'],
-            ['release_id' => '11208487'],
-            ['release_id' => '12511980'],
-            ['release_id' => '23000420'],
-            ['release_id' => '12773291'],
-            ['release_id' => '7435327'],
-            ['release_id' => '9403008'],
-            ['release_id' => '27840414'],
-            ['release_id' => '9258642'],
-            ['release_id' => '12802012'],
-            ['release_id' => '1044164'],
-            ['release_id' => '484030'],
-            ['release_id' => '20587606'],
-            ['release_id' => '7266689'],
             ['release_id' => '31902511'],
-            ['release_id' => '7810100'],
+            ['release_id' => '484030'],
+            ['release_id' => '28993519'],
+            ['release_id' => '15961158'],
             ['release_id' => '5709533'],
+            ['release_id' => '12773291'],
+            ['release_id' => '1044164'],
+            ['release_id' => '233445'],
+            ['release_id' => '7810100'],
+            ['release_id' => '11208487'],
+            ['release_id' => '2606952'],
+            ['release_id' => '7266689'],
+            ['release_id' => '28970116'],
+            ['release_id' => '12511980'],
+            ['release_id' => '9403008'],
+            ['release_id' => '20587606'],
+            ['release_id' => '9778270'],
+            ['release_id' => '7435327'],
+            ['release_id' => '530085'],
+            ['release_id' => '30423881'],
+            ['release_id' => '15968171'],
+            ['release_id' => '27840414'],
+            ['release_id' => '12802012'],
+            ['release_id' => '23000420'],
+            ['release_id' => '1608688'],
+            ['release_id' => '33007125'],
+            ['release_id' => '9258642'],
+            ['release_id' => '3354383'], 
             
         ];
 
         foreach ($vinyls as $vinylData) {
 
+            if (Vinyl::where('release_id', $vinylData['release_id'])->exists()){
+                continue; // checks if vinyl already exists. If so, skips to the next one
+            }
+            
             $getInfo = $this->getVinylInfo($vinylData['release_id']);
             $spotifyLink = $this->spotifyService->getAlbumUrl($getInfo['title'], $getInfo['artist']);
             $iTunesLink = $this->iTunesService->getiTunesUrl($getInfo['title'], $getInfo['artist']);
@@ -96,7 +101,7 @@ class VinylSeeder extends Seeder
 
             // adds tracks to each vinyl
             $vinyl->tracks()->createMany($vinylData['tracks']);
-            sleep(0.5);
+            sleep(0.2);
         }
     }
 

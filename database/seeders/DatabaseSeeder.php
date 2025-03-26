@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
         if (DB::table('countries')->count() === 0) {
             $this->call(CountriesSeeder::class);
         }
-        if (DB::table('vinyls')&&DB::table('tracks')->count() === 0) {
-            $this->call(VinylSeeder::class);
-        }
+
+        // I redid logic here, so i could add new release to the DB via seeder
+        $this->call(VinylSeeder::class); 
     }
 }

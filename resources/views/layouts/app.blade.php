@@ -60,8 +60,9 @@
         </footer>
     </div>
     <script>
-        let vinyls = {!! json_encode(App\Models\Vinyl::select('vinyl_id', 'title', 'artist', 'cover')->get()) !!};
-
+        
+        let vinyls = JSON.parse("{!! addslashes(json_encode($vinyls)) !!}");
+        
         function debounce(func, wait) {
             let timeout;
             return function(...args) {
@@ -79,7 +80,7 @@
             if (query.length >= 2) {
                 if (results.length > 0) {
                     let fragment = document.createDocumentFragment();
-                    results.forEach(vinyl => {
+                    results.slice(0, 3).forEach(vinyl => {
                         let item = document.createElement('div');
                         item.classList.add('dropdown-item');
                         
