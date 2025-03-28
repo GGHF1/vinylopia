@@ -14,7 +14,7 @@
             <a href="{{ route('home') }}">
                 <img src="{{ asset('images/elements/logo.png') }}" alt="Vinylopia Logo" class="logo">
             </a>
-            <div class="top-nav">
+            <div class="left-nav">
                 <div class="search-container">
                     <input type="text" id="search" placeholder="Search for albums..." autocomplete="off">
                     <div id="search-results" class="dropdown-content"></div>
@@ -22,15 +22,58 @@
                 <div class="button-container">
                     <form action="{{ route('explore') }}" method="get">
                         @csrf
-                        <button type="submit">Explore</button>
+                        <button type="submit" class="explore-btn">Explore</button>
                     </form>
                     <form action="{{ route('marketplace') }}" method="get">
                         @csrf
-                        <button type="submit">Marketplace</button>
+                        <button type="submit" class="market-btn">Marketplace</button>
                     </form>
                 </div>
             </div>
-            <div class="user-nav">
+            <div class="right-nav">
+                @auth
+                    <form action="{{ route('profile')}}" method="get">
+                        @csrf
+                        <button type="submit">Profile</button>
+                    </form>    
+                    <form action="{{ route('logout')}}" method="post">
+                        @csrf
+                        <button type="submit">Logout</button>
+                    </form>
+                @else
+                    <form action="{{ route('login') }}" method="get">
+                        @csrf
+                        <button type="submit">Log In</button>
+                    </form>    
+                    <form action="{{ route('signup') }}" method="get">
+                        @csrf
+                        <button type="submit">Sign Up</button>
+                    </form>
+                @endauth
+                
+                <div class="cart-class">
+                    <div class="cart-container">
+                        <img src="{{  asset('images/elements/black-shopping-cart.png') }}" class="cart-icon" alt="Cart">
+                    </div>
+                </div>
+                
+                <div class="mobile-drawer">
+                    <div class="mobile-icon-container" id="mobile-icon">
+                        <img src="{{ asset('images/elements/drawer.png') }}" class="mobile-icon" alt="Menu">
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <div class="main-container">
+            <div class="mobile-drawer-content">
+                <form action="{{ route('explore') }}" method="get">
+                @csrf
+                    <button type="submit" class="explore-btn">Explore</button>
+                </form>
+                <form action="{{ route('marketplace') }}" method="get">
+                @csrf
+                    <button type="submit" class="market-btn">Marketplace</button>
+                </form>
                 @auth
                     <form action="{{ route('profile')}}" method="get">
                         @csrf
@@ -51,8 +94,6 @@
                     </form>
                 @endauth
             </div>
-        </div>    
-        <div class="main-container">
             @yield('content')
         </div>
         <footer class="footer">
@@ -141,6 +182,24 @@
             let dropdown = document.getElementById('search-results');
             if (!dropdown.contains(event.target) && event.target.id !== 'search') {
                 dropdown.style.display = 'none';
+            }
+        });
+
+        document.getElementById('mobile-icon').addEventListener('click', function() {
+            let drawerContent = document.querySelector('.mobile-drawer-content');
+
+            if (drawerContent.style.display === 'block') {
+            drawerContent.style.display = 'none';
+            } else {
+            drawerContent.style.display = 'block';
+            }
+        });
+
+        window.addEventListener('resize', function() {
+            let drawerContent = document.querySelector('.mobile-drawer-content');
+            
+            if (window.innerWidth > 1125) {
+            drawerContent.style.display = 'none';
             }
         });
     </script>

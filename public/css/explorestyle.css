@@ -3,19 +3,154 @@ body {
 }
 
 .marketplace-container {
-    max-width: 1000px;
+    display: flex;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
-.vinyl-item, .search-text {
-    background-color: #fff;
+.filter-section {
+    width: 250px;
+    background: #fff;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    padding: 20px;
+}
+
+.filter-section h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.filter-section label {
+    display: block;
+    margin: 10px 0;
+    color: #333;
+}
+
+.results-container {
+    flex: 1;
+    margin-left: 20px;
+}
+
+
+.wrapper-section {
     display: flex;
-    transition: transform 0.2s;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.scanner-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* took help-tip css code from https://tutorialzine.com/2014/07/css-inline-help-tips */
+.help-tip {
+    position: relative;
+    text-align: center;
+    background-color: #BCDBEA;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    font-size: 10px;
+    line-height: 15px;
+    cursor: default;
+}
+
+.help-tip:before {
+    content: '?';
+    font-weight: bold;
+    color: #fff;
+}
+
+.help-tip:hover p {
+    display: block;
+    transform-origin: 100% 0%;
+    -webkit-animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.help-tip p {
+    display: none;
+    text-align: left;
+    background-color: #1E2021;
+    padding: 20px;
+    width: 300px;
+    position: absolute;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    right: -8px;
+    color: #FFF;
+    font-size: 13px;
+    line-height: 1.4;
+    margin-top: 10px;
+}
+
+.help-tip p:before {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-bottom-color: #1E2021;
+    right: 10px;
+    top: -12px;
+}
+
+.help-tip p:after {
+    width: 100%;
+    height: 40px;
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 0;
+}
+
+.sort-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sort-section label {
+    font-size: 14px;
+    margin-right: 5px;
+    color: white;
+}
+
+.sort-section select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    height: 30px;
+}
+
+#start-scan {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: white;
+    color: black;
+    border: 1px solid black;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+}
+
+.vinyl-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.vinyl-item {
+    display: flex;
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .vinyl-cover {
@@ -115,38 +250,26 @@ body {
     animation: scan-animation 2s infinite alternate ease-in-out;
 }
 
-.buttons-container{
-    margin: 0 auto;
-    background-color: white;
-    max-width: 1000px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+    100% {
+        opacity: 100%;
+        transform: scale(1);
+    }
 }
 
-.sort-btn, .filter-btn, .scan-btn {
-    display: inline-block;
-    background-color: #205698;
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    margin-right: 10px;
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 100%;
+    }
 }
 
-.scan-btn{
-    float: right;
-}
-
-.sort-btn:hover, .filter-btn:hover, .scan-btn:hover {
-    background-color: #173d6b;
-}
 
 @keyframes scan-animation {
     from {

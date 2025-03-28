@@ -60,23 +60,24 @@ html, body {
     margin-right: 20px;
 }
 
-.top-nav, .user-nav {
+.left-nav, .right-nav {
     overflow: visible;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 10px;
+    gap: 0px;
     background-color: white;
 }
 
-.top-nav .button-container {
+.left-nav .button-container {
     display: flex;
-    gap: 10px;
+    gap: 0px;
+    margin-left: 10px;
     transition: opacity 0.3s ease-in-out;
     visibility: visible;
 }
 
-.top-nav input[type=text] {
+.left-nav input[type=text] {
     float: left;
     padding: 16px;
     border: none;
@@ -84,14 +85,14 @@ html, body {
     font-size: 17px;
     width: 400px;
     outline: 1px solid black;
-    transition: width 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
 }
 
-.top-nav input[type=text]:focus {
+.left-nav input[type=text]:focus {
     outline: 2px solid #296ec2;
 }
 
-.top-nav button, .user-nav button {
+.left-nav button, .right-nav button {
     float: left;
     display: block;
     color: black;
@@ -104,20 +105,15 @@ html, body {
     background-color: white;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
 }
 
-.top-nav button:hover, .top-nav button.active, .user-nav button:hover, .user-nav button.active {
+.left-nav button:hover, .left-nav button.active, .right-nav button:hover, .right-nav button.active {
     background-color: #173e6e;
     color: white;
 }
 
-.user-nav {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.user-nav form {
+.right-nav form {
     margin: 0;
 }
 
@@ -129,7 +125,7 @@ html, body {
 
 #search-results {
     position: absolute;
-    top: 62px; 
+    top: 62px;
     width: 400px;
     background: white;
     outline: 1px solid black;
@@ -179,4 +175,94 @@ html, body {
 #search-results .dropdown-title {
     font-size: 14px;
     color: #666;
+}
+
+.mobile-nav, .mobile-drawer {
+    display: none;
+}
+
+.mobile-drawer-content {
+    display: none;
+    position: relative;
+    width: 100%;
+    background: white;
+    outline: 1px solid black;
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-drawer-content button {
+    display: none;
+    width: 100%;
+    height: 50px;
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 17px;
+    color: black;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.mobile-drawer-content button:hover {
+    background-color: #173e6e;
+    color: white;
+}
+
+.cart-icon{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.cart-container {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.cart-container:hover {
+    background-color: #173e6e;
+}
+
+@media (max-width: 1125px) {
+    .mobile-drawer {
+        display: flex;
+    }
+
+    .mobile-icon-container {
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        transition: background-color 0.3s ease-in-out;
+        cursor: pointer;
+    }
+
+    .mobile-icon-container:hover {
+        background-color: #173e6e;
+    }
+
+    .mobile-icon {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+    }
+
+    .left-nav .button-container, .right-nav button {
+        display: none;
+    }
+
+    .mobile-drawer-content button {
+        display: block;
+    }
 }

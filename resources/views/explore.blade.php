@@ -9,50 +9,77 @@
 @section('content')
 
     <div class="marketplace-container">
-        <div class="buttons-container">
-            <button class="sort-btn">Sort</button>
-            <button class="filter-btn">Filter</button>
-            <button class="scan-btn" id="start-scan">Barcode Scanner</button>
+        <div class="filter-section">
+            <h3>Filter By</h3>
+            <!--will be added later-->
+            <label><input type="checkbox"> Option 1</label>
+            <label><input type="checkbox"> Option 2</label>
+            <label><input type="checkbox"> Option 3</label>
+            <label><input type="radio" name="filter"> Radio 1</label>
+            <label><input type="radio" name="filter"> Radio 2</label>
         </div>
-        @if (isset($query))
-            <div class="search-text">
-                <h2>Search results for "{{ $query }}"</h2>
-            </div>
-            @if ($vinyls->count())
-                @foreach($vinyls as $vinyl)
-                    <div class="vinyl-item">
-                        <a href="{{ route('vinyl.release', $vinyl->vinyl_id) }}">
-                            <img src="{{ $vinyl->cover }}" alt="{{ $vinyl->title }} cover" class="vinyl-cover">
-                        </a>
-                        <div class="text-container">
-                            <h2>{{ $vinyl->artist }} - {{ $vinyl->title }}</h2>
-                            <p><strong>Year:</strong> {{ $vinyl->year }}</p>
-                            <p><strong>Format:</strong> {!! nl2br(e($vinyl->format)) !!}</p>
-                            <a href="{{ route('vinyl.release', $vinyl->vinyl_id) }}">View release</a>
-                        </div>
+
+        <div class="results-container">
+            <div class="wrapper-section">
+                <div class="scanner-container">
+                    <button id="start-scan">Scan Barcode</button>
+                    <div class="help-tip">
+                        <p>Scan the barcode on the back side of the vinyl cover.</p>
                     </div>
-                @endforeach
-            @else
-                <p>No results found for "{{ $query }}".</p>
-            @endif
-        @else
-            @foreach($vinyls as $vinyl)
-                <div class="vinyl-item">
-                    <a href="{{ route('vinyl.release', $vinyl->vinyl_id) }}">
-                        <img src="{{ $vinyl->cover }}" alt="{{ $vinyl->title }} cover" class="vinyl-cover">
-                    </a>
-                    <div class="text-container">
-                        <h2>{{ $vinyl->artist }} - {{ $vinyl->title }}</h2>
-                        <p><strong>Year:</strong> {{ $vinyl->year }}</p>
-                        <p><strong>Format:</strong> {!! nl2br(e($vinyl->format)) !!}</p>
-                        <a href="{{ route('vinyl.release', $vinyl->vinyl_id) }}">View release</a>
-                    </div>
+
                 </div>
-            @endforeach
-        @endif
+                <div class="sort-section">
+                    <label for="sort-by">Sort by:</label>
+                    <select id="sort-by">
+                        <option value="recent">Most Recent</option>
+                        <option value="popular">Most Popular</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="vinyl-list">
+                @if (isset($query))
+                    <div class="search-text">
+                        <h2>Search results for "{{ $query }}"</h2>
+                    </div>
+                    @if ($vinyls->count())
+                        @foreach($vinyls as $vinyl)
+                            <div class="vinyl-item">
+                                <a href="{{ route('vinyl.release', $vinyl->vinyl_id) }}">
+                                    <img src="{{ $vinyl->cover }}" alt="{{ $vinyl->title }} cover" class="vinyl-cover">
+                                </a>
+                                <div class="text-container">
+                                    <h2>{{ $vinyl->artist }} - {{ $vinyl->title }}</h2>
+                                    <p><strong>Year:</strong> {{ $vinyl->year }}</p>
+                                    <p><strong>Format:</strong> {!! nl2br(e($vinyl->format)) !!}</p>
+                                    <a href="{{ route('vinyl.release', $vinyl->vinyl_id) }}">View release</a>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <p>No results found for "{{ $query }}".</p>
+                    @endif
+                @else
+                    @foreach($vinyls as $vinyl)
+                        <div class="vinyl-item">
+                            <a href="{{ route('vinyl.release', $vinyl->vinyl_id) }}">
+                                <img src="{{ $vinyl->cover }}" alt="{{ $vinyl->title }} cover" class="vinyl-cover">
+                            </a>
+                            <div class="text-container">
+                                <h2>{{ $vinyl->artist }} - {{ $vinyl->title }}</h2>
+                                <p><strong>Year:</strong> {{ $vinyl->year }}</p>
+                                <p><strong>Format:</strong> {!! nl2br(e($vinyl->format)) !!}</p>
+                                <a href="{{ route('vinyl.release', $vinyl->vinyl_id) }}">View release</a>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+
     <div id="barcodeModal" class="video-modal">
         <div class="video-modal-content">
             <span class="video-close" onclick="closeBarcodeModal()">&times;</span>
