@@ -16,7 +16,7 @@ class MainController extends Controller
     // Explore - all vinyls released
     // Marketplace - all vinyls for sale by users
     public function explore(Request $request) {
-        $vinyls = Vinyl::all();
+        $vinyls = Vinyl::paginate(10);
         return view('explore', compact('vinyls'));
     }
 

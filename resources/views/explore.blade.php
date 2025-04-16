@@ -75,6 +75,9 @@
                     @endforeach
                 @endif
             </div>
+            <div class="pagination">
+                {{ $vinyls->links('pagination::bootstrap-4') }}
+            </div>
         </div>
     </div>
 

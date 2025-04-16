@@ -9,13 +9,8 @@
 @section('content')
 
     <div class="home-container">
-        <h1>Welcome to Vinylopia</h1>
-        <p>Your one-stop shop for all things vinyl</p>
-
-        @auth
-            <p>Welcome back, {{ Auth::user()->username }}!</p>
-        @else
-            <p>Discover, buy, and sell vinyl records with ease. Join us today!</p>
-        @endauth
+        <div class="gallery-container">
+            <h1>IMGs will be here soon</h1>
+        </div>
     </div>
 @endsection

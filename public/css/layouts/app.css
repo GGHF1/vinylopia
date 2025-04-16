@@ -6,7 +6,7 @@
 
 html, body {
     height: 100%;
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif !important;
 }
 
 .page-container {
@@ -232,6 +232,23 @@ html, body {
     background-color: #173e6e;
 }
 
+.right-nav .avatar-btn {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    cursor: pointer; 
+    height: 70px; 
+}
+
+
+.user-avatar{
+    width: 40px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: white;
+}
+
 @media (max-width: 1125px) {
     .mobile-drawer {
         display: flex;
@@ -258,8 +275,15 @@ html, body {
         object-fit: cover;
     }
 
-    .left-nav .button-container, .right-nav button {
+    .left-nav .button-container {
         display: none;
+    }
+
+    .left-nav{
+        width: 400px;
+    }
+    .left-nav input[type=text] {
+        width: 100%;
     }
 
     .mobile-drawer-content button {
