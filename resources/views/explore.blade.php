@@ -11,12 +11,29 @@
     <div class="marketplace-container">
         <div class="filter-section">
             <h3>Filter By</h3>
-            <!--will be added later-->
-            <label><input type="checkbox"> Option 1</label>
-            <label><input type="checkbox"> Option 2</label>
-            <label><input type="checkbox"> Option 3</label>
-            <label><input type="radio" name="filter"> Radio 1</label>
-            <label><input type="radio" name="filter"> Radio 2</label>
+            <form id="filter-form" method="get" action="{{ route('explore') }}">
+                <label for="genre">Genre:</label>
+                <select name="genre" id="genre" onchange="updateFilters()">
+                    <option value="">All</option>
+                    @foreach($genres as $genre)
+                        <option value="{{ $genre }}" {{ request('genre') == $genre ? 'selected' : '' }}>{{ $genre }}</option>
+                    @endforeach
+                </select>
+        
+                <label for="artist">Artist:</label>
+                <select name="artist" id="artist" onchange="updateFilters()">
+                    <option value="">All</option>
+                    @foreach($artists as $artist)
+                        <option value="{{ $artist }}" {{ request('artist') == $artist ? 'selected' : '' }}>{{ $artist }}</option>
+                    @endforeach
+                </select>
+        
+                <label for="year">Year:</label>
+                <input type="text" name="year" id="year" placeholder="Enter year" value="{{ request('year') }}" oninput="updateYearFilter()">
+                <div style="text-align: center; margin-top: 10px;">
+                    <a href="{{ route('explore') }}" class="clear-filters">Clear Filters</a>
+                </div>
+            </form>
         </div>
 
         <div class="results-container">
@@ -29,12 +46,14 @@
 
                 </div>
                 <div class="sort-section">
-                    <label for="sort-by">Sort by:</label>
-                    <select id="sort-by">
-                        <option value="recent">Most Recent</option>
-                        <option value="popular">Most Popular</option>
-                    </select>
+                <select id="sort-by">
+                    <option value="">Default</option>
+                    <option value="title" {{ request('sort') == 'title' ? 'selected' : '' }}>Title</option>
+                    <option value="artist" {{ request('sort') == 'artist' ? 'selected' : '' }}>Artist</option>
+                    <option value="year" {{ request('sort') == 'year' ? 'selected' : '' }}>Year</option>
+                </select>
                 </div>
+
             </div>
 
             <div class="vinyl-list">
@@ -158,6 +177,17 @@
             });
         });
 
+        document.getElementById('sort-by').addEventListener('change', function () {
+            const sort = this.value;
+            const params = new URLSearchParams(window.location.search);
+            if (sort) {
+                params.set('sort', sort);
+            } else {
+                params.delete('sort');
+            }
+            window.location.href = window.location.pathname + '?' + params.toString();
+        });
+
         function openBarcodeModal() {
                     document.getElementById('barcodeModal').style.display = 'block';
                 }
@@ -173,6 +203,45 @@
                 tracks.forEach(track => track.stop());
             }
             videoElement.srcObject = null; 
+        }
+
+        function updateFilters() {
+            const params = new URLSearchParams(window.location.search);
+
+            const genre = document.getElementById('genre').value;
+            const artist = document.getElementById('artist').value;
+
+            if (genre) {
+                params.set('genre', genre);
+            } else {
+                params.delete('genre');
+            }
+
+            if (artist) {
+                params.set('artist', artist);
+            } else {
+                params.delete('artist');
+            }
+
+            window.location.href = window.location.pathname + '?' + params.toString();
+        }
+
+        let debounceTimer;
+
+        function updateYearFilter() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const params = new URLSearchParams(window.location.search);
+                const year = document.getElementById('year').value;
+
+                if (year) {
+                    params.set('year', year);
+                } else {
+                    params.delete('year');
+                }
+
+                window.location.href = window.location.pathname + '?' + params.toString();
+            }, 1000); // Delay only for year
         }
 
     </script>

@@ -217,7 +217,7 @@ html, body {
     object-fit: cover;
 }
 
-.cart-container {
+.cart-container, .cart-container-hover {
     width: 70px;
     height: 70px;
     display: flex;
@@ -228,7 +228,16 @@ html, body {
     cursor: pointer;
 }
 
-.cart-container:hover {
+.cart-container-hover {
+    display: none;
+}
+
+.cart-class:hover .cart-container {
+    display: none;
+}
+
+.cart-class:hover .cart-container-hover {
+    display: flex;
     background-color: #173e6e;
 }
 

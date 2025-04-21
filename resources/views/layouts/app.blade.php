@@ -22,11 +22,9 @@
                 </div>
                 <div class="button-container">
                     <form action="{{ route('explore') }}" method="get">
-                        @csrf
                         <button type="submit" class="explore-btn">Explore</button>
                     </form>
                     <form action="{{ route('marketplace') }}" method="get">
-                        @csrf
                         <button type="submit" class="market-btn">Marketplace</button>
                     </form>
                 </div>
@@ -60,7 +58,10 @@
 
                 <div class="cart-class">
                     <div class="cart-container">
-                        <img src="{{  asset('images/elements/black-shopping-cart.png') }}" class="cart-icon" alt="Cart">
+                        <img src="{{  asset('images/elements/cart.png') }}" class="cart-icon" alt="Cart">
+                    </div>
+                    <div class="cart-container-hover">
+                        <img src="{{  asset('images/elements/cart-hover.png') }}" class="cart-icon" alt="Cart">
                     </div>
                 </div>
                 
@@ -91,7 +92,7 @@
     </div>
     <script>
         
-        let vinyls = JSON.parse("{!! addslashes(json_encode($vinyls)) !!}");
+        let vinylsresult = JSON.parse("{!! addslashes(json_encode($vinylsresult)) !!}");
         
         function debounce(func, wait) {
             let timeout;
@@ -103,7 +104,7 @@
 
         document.getElementById('search').addEventListener('input', debounce(function() {
             let query = this.value.toLowerCase();
-            let results = vinyls.filter(vinyl => vinyl.title.toLowerCase().includes(query) || vinyl.artist.toLowerCase().includes(query));
+            let results = vinylsresult.filter(vinyl => vinyl.title.toLowerCase().includes(query) || vinyl.artist.toLowerCase().includes(query));
             let dropdown = document.getElementById('search-results');
             dropdown.innerHTML = '';
 
@@ -191,6 +192,7 @@
             drawerContent.style.display = 'none';
             }
         });
+
     </script>
 
 </body>

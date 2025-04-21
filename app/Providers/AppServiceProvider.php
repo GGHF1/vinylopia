@@ -24,8 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::share('vinyls', Vinyl::select('vinyl_id', 'title', 'artist', 'cover')->get());
+        View::share('vinylsresult', Vinyl::select('vinyl_id', 'title', 'artist', 'cover')->get());
         View::share('vinylRelease', Vinyl::select('vinyl_id', 'barcode')->get());
-
     }
 }
