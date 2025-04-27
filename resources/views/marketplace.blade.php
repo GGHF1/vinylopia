@@ -1,17 +1,16 @@
 @extends('layouts.app')
 
-@section('title', isset($query) ? 'Vinylopia: Search results' : 'Vinylopia: Explore vinyls')
+@section('title', 'Vinylopia: Marketplace')
 
 @section('head')
-    <link rel="stylesheet" href="{{ asset('css/explorestyle.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/marketstyle.css') }}">
 @endsection
 
 @section('content')
-
     <div class="marketplace-container">
         <div class="filter-section">
             <h3>Filter By</h3>
-            <form id="filter-form" method="get" action="{{ route('explore') }}">
+            <form id="filter-form" method="get" action="{{ route('marketplace') }}">
                 <label for="genre">Genre:</label>
                 <select name="genre" id="genre" onchange="updateFilters()">
                     <option value="">All</option>
@@ -30,8 +29,9 @@
         
                 <label for="year">Year:</label>
                 <input type="text" name="year" id="year" placeholder="Enter year" value="{{ request('year') }}" oninput="updateYearFilter()">
+                
                 <div style="text-align: center; margin-top: 10px;">
-                    <a href="{{ route('explore') }}" class="clear-filters">Clear Filters</a>
+                    <a href="{{ route('marketplace') }}" class="clear-filters">Clear Filters</a>
                 </div>
             </form>
         </div>
@@ -43,59 +43,56 @@
                     <div class="help-tip">
                         <p>Scan the barcode on the back side of the vinyl cover.</p>
                     </div>
-
                 </div>
                 <div class="sort-section">
                 <select id="sort-by">
                     <option value="">Default</option>
-                    <option value="title" {{ request('sort') == 'title' ? 'selected' : '' }}>Title</option>
-                    <option value="artist" {{ request('sort') == 'artist' ? 'selected' : '' }}>Artist</option>
-                    <option value="year" {{ request('sort') == 'year' ? 'selected' : '' }}>Year</option>
+                    <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Price (Low to High)</option>
+                    <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Price (High to Low)</option>
+                    <option value="date_desc" {{ request('sort') == 'date_desc' ? 'selected' : '' }}>Newest First</option>
+                    <option value="date_asc" {{ request('sort') == 'date_asc' ? 'selected' : '' }}>Oldest First</option>
                 </select>
                 </div>
-
             </div>
 
             <div class="vinyl-list">
-                @if (isset($query))
-                    <div class="search-text">
-                        <h2>Search results for "{{ $query }}"</h2>
-                    </div>
-                    @if ($vinyls->count())
-                        @foreach($vinyls as $vinyl)
-                            <div class="vinyl-item">
-                                <a href="{{ route('vinyl.release', $vinyl->vinyl_id) }}">
-                                    <img src="{{ $vinyl->cover }}" alt="{{ $vinyl->title }} cover" class="vinyl-cover">
+                @if($listings->count() > 0)
+                    @foreach($listings as $listing)
+                        <div class="listing-item">
+                            <div class="listing-image">
+                                <a href="{{ route('vinyl.release', $listing->vinyl->vinyl_id) }}">
+                                    <img src="{{ $listing->vinyl->cover }}" alt="{{ $listing->vinyl->title }} cover" class="vinyl-cover">
                                 </a>
-                                <div class="text-container">
-                                    <h2>{{ $vinyl->artist }} - {{ $vinyl->title }}</h2>
-                                    <p><strong>Year:</strong> {{ $vinyl->year }}</p>
-                                    <p><strong>Format:</strong> {!! nl2br(e($vinyl->format)) !!}</p>
-                                    <a href="{{ route('vinyl.release', $vinyl->vinyl_id) }}">View release</a>
-                                </div>
                             </div>
-                        @endforeach
-                    @else
-                        <p>No results found for "{{ $query }}".</p>
-                    @endif
-                @else
-                    @foreach($vinyls as $vinyl)
-                        <div class="vinyl-item">
-                            <a href="{{ route('vinyl.release', $vinyl->vinyl_id) }}">
-                                <img src="{{ $vinyl->cover }}" alt="{{ $vinyl->title }} cover" class="vinyl-cover">
-                            </a>
-                            <div class="text-container">
-                                <h2>{{ $vinyl->artist }} - {{ $vinyl->title }}</h2>
-                                <p><strong>Year:</strong> {{ $vinyl->year }}</p>
-                                <p><strong>Format:</strong> {!! nl2br(e($vinyl->format)) !!}</p>
-                                <a href="{{ route('vinyl.release', $vinyl->vinyl_id) }}">View release</a>
+                            <div class="listing-details">
+                                <h2><a href="{{ route('vinyl.release', $listing->vinyl->vinyl_id) }}">{{ $listing->vinyl->artist }} - {{ $listing->vinyl->title }}</a></h2>
+                                <div class="listing-info">
+                                    <div class="listing-meta">
+                                        <p><strong>Seller:</strong> {{ $listing->user->username }}</p>
+                                        <p><strong>Year:</strong> {{ $listing->vinyl->year }}</p>
+                                        <p><strong>Condition:</strong> <span class="condition-badge">Vinyl: {{ $listing->vinyl_condition }}</span> <span class="condition-badge">Cover: {{ $listing->cover_condition }}</span></p>
+                                        @if($listing->comments)
+                                            <p><strong>Comments:</strong> {{ \Illuminate\Support\Str::limit($listing->comments, 100) }}</p>
+                                        @endif
+                                    </div>
+                                    <div class="listing-actions">
+                                        <div class="price">€{{ number_format($listing->price, 2) }}</div>
+                                        <button class="add-to-cart-btn">Add to Cart</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     @endforeach
+                @else
+                    <div class="no-listings">
+                        <p>No listings found matching your criteria.</p>
+                        <p>Try changing your filters or <a href="{{ route('listing.create') }}">add your own vinyl for sale</a>.</p>
+                    </div>
                 @endif
             </div>
+            
             <div class="pagination">
-                {{ $vinyls->links('pagination::bootstrap-4') }}
+                {{ $listings->links('pagination::bootstrap-4') }}
             </div>
         </div>
     </div>
@@ -245,5 +242,4 @@
         }
 
     </script>
-
 @endsection

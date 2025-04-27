@@ -62,6 +62,26 @@
                 </table>
             </div>
             <div class="purchase-section">
+                @php
+                    // Get count of listings for this vinyl
+                    $listingsCount = App\Models\Listing::where('vinyl_id', $vinyl->vinyl_id)->count();
+                    
+                    // Get minimum price from listings
+                    $minPrice = App\Models\Listing::where('vinyl_id', $vinyl->vinyl_id)
+                                    ->min('price');
+                    
+                    // Format the price with currency symbol
+                    $formattedPrice = $minPrice ? '€' . number_format($minPrice, 2) : 'N/A';
+                @endphp
+                
+                <div class="listing-summary">
+                    @if($listingsCount > 0)
+                        <p>{{ $listingsCount }} {{ $listingsCount == 1 ? 'copy' : 'copies' }} from {{ $formattedPrice }}</p>
+                    @else
+                        <p>No copies currently for sale</p>
+                    @endif
+                </div>
+                <a href="{{ route('listing.create', ['vinyl_id' => $vinyl->vinyl_id]) }}" class="sell-button">Sell Your Copy</a>
                 <button class="buy-button">Buy Now</button>
                 <button class="wishlist-button">Add to Wishlist</button>
                 <a href="{{ $vinyl->spotify_link }}" target="_blank">

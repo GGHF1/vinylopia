@@ -11,12 +11,14 @@ class Listing extends Model
 
     protected $primaryKey = 'listing_id';
     protected $fillable = [
-    'price',
-    'comments',
-    'user_id',
-    'vinyl_id',
-    'created_at',
-    'updated_at'
+        'price',
+        'vinyl_condition',
+        'cover_condition',
+        'comments',
+        'user_id',
+        'vinyl_id',
+        'created_at',
+        'updated_at'
     ];
 
     public function vinyl()

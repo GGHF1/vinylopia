@@ -19,16 +19,26 @@ Make sure to install:
 2. SQL Database, for instance, [MySQL](https://dev.mysql.com/downloads/installer/).
 3. [Composer](https://getcomposer.org/download/) for managing PHP dependencies.
 
-### 3. Create the Database
+### 3. Configure SSL Certificate for API Requests
+
+The application makes API calls that require SSL verification. Follow these steps to ensure API requests work correctly:
+
+#### Download the certificate bundle
+1. Download the latest CA certificate bundle from: https://curl.se/ca/cacert.pem
+2. Save it to a location on your system (e.g. ```C:/php/extras/ssl/cacert.pem``` or in your PHP installation directory)
+3. Edit your `php.ini` file and add these lines: ```curl.cainfo = "PATH_TO_FILE/cacert.pem"``` Replace `PATH_TO_FILE` with the actual path where you saved the file.
+4. Restart your web server if it's already running
+
+### 4. Create the Database
 
 Create an account for your MySQL DB and CREATE DATABASE vinylopiaDB.
 ```bash
 create database vinylopiaDB
 ```
 
-### 4. Configure Environment Variables
+### 5. Configure Environment Variables
 
-#### 4.1. Database Configuration
+#### 5.1. Database Configuration
 
 Create and edit a ```.env``` file according to your DB and Spotify API settings.
 You can take the code from ```.env.example``` file.
@@ -42,7 +52,7 @@ DB_USERNAME=root
 DB_PASSWORD=1234
 ```
 
-#### 4.2. Spotify API Configuration
+#### 5.2. Spotify API Configuration
 
 To integrate with the Spotify API, you'll need to create a Spotify Developer account and register your application to get your Client ID and Client Secret. Here is how you do it:
 1. Create a Spotify Developer Account
@@ -70,33 +80,33 @@ SPOTIFY_CLIENT_ID="your_id"
 SPOTIFY_CLIENT_SECRET="your_secret"
 ```
 
-### 5. Install the Necessary Dependencies
+### 6. Install the Necessary Dependencies
 
 Enter this command to install all necessary dependencies:
 ```bash
 composer install
 ```
 
-### 6. Create Storage Link
+### 7. Create Storage Link
 
 To create a symbolic link from ```public/storage``` to ```storage/app/public```, where user avatar images (and other files) will be stored, run the following command:
 ```bash
 php artisan storage:link
 ```
 
-### 7. Create the avatars Folder
+### 8. Create the avatars Folder
 
 After creating the storage link, you may need to create the ```avatars``` folder inside ```public/storage``` and ```storage/app/public``` directories if it doesn't exist.   
 
 Correct paths should look as follows: ```public/storage/avatars``` and ```storage/app/public/avatars```
 
-### 8. Generate Application Key
+### 9. Generate Application Key
 
 Laravel requires an application key to be set. You can generate it by running:
 ```bash
 php artisan key:generate
 ```
-### 9. Migrate the Database
+### 10. Migrate the Database
 
 After configuring the ```.env``` file, run the following commands to create the necessary tables in your database and populate them with vinyl information:
 ```bash
@@ -104,7 +114,7 @@ php artisan migrate
 php artisan migrate --seed
 ```
 
-### 10. Serve the Application
+### 11. Serve the Application
 
 Start the PHP server by running:
 ```bash

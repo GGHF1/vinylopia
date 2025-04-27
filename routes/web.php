@@ -27,3 +27,7 @@ Route::get('/explore/search', [MainController::class, 'exploreSearch'])->name('e
 Route::get('/marketplace', [MainController::class, 'marketplace'])->name('marketplace');
 
 Route::get('/artist', [MainController::class, 'artist'])->name('artist.show');
+
+Route::get('/createListing', [MainController::class, 'create'])->name('listing.create')->middleware('auth');;
+Route::post('/listings/search', [MainController::class, 'search'])->name('listing.search')->middleware('auth');;
+Route::post('/listings', [MainController::class, 'store'])->name('listing.store')->middleware('auth');;

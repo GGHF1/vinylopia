@@ -3,25 +3,68 @@ body {
 }
 
 .marketplace-container {
-    max-width: 1000px;
+    display: flex;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
 }
 
-h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 40px;
-}
-
-.vinyl-item {
-    background-color: #fff;
+.filter-section {
+    width: 250px;
+    background: #fff;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    padding: 20px;
+    height: 370px;
+    position: sticky;
+}
+
+.filter-section h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.filter-section label {
+    display: block;
+    margin: 10px 0;
+    color: #333;
+}
+
+.filter-section select, .filter-section input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.results-container {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.vinyl-list {
     display: flex;
-    transition: transform 0.2s;
+    flex-direction: column;
+}
+
+.listing-item {
+    display: flex;
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.listing-item:hover {
+    transform: translateY(-2px);
+}
+
+.listing-image {
+    margin-right: 20px;
 }
 
 .vinyl-cover {
@@ -29,7 +72,6 @@ h1 {
     height: 150px;
     border-radius: 8px;
     object-fit: cover;
-    margin-right: 20px;
 }
 
 .vinyl-cover:hover {
@@ -37,28 +79,343 @@ h1 {
     cursor: pointer;
 }
 
-.text-container {
+.listing-details {
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.vinyl-item h2 {
+.listing-details h2 {
     font-size: 18px;
+    font-weight: bold;
     color: #205698;
     margin: 0 0 10px;
 }
 
-.vinyl-item h2 a {
+.listing-details h2 a {
+    color: #205698;
     text-decoration: none;
-    color: inherit;
 }
 
-.vinyl-item p {
+.listing-details h2 a:hover {
+    text-decoration: underline;
+}
+
+.listing-info {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.listing-meta {
+    flex: 1;
+}
+
+.listing-meta p {
     margin: 5px 0;
     color: #555;
+    font-size: 14px;
 }
 
-.vinyl-item p strong {
+.listing-meta p strong {
     color: #333;
 }
 
+.condition-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-right: 5px;
+}
 
+.listing-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding-left: 15px;
+    border-left: 1px solid #eee;
+    min-width: 120px;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #205698;
+    margin-bottom: 10px;
+}
+
+.add-to-cart-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    width: 100%;
+    text-align: center;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #45a049;
+}
+
+.no-listings {
+    background: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.no-listings p {
+    margin: 10px 0;
+    color: #666;
+}
+
+.no-listings a {
+    color: #205698;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.no-listings a:hover {
+    text-decoration: underline;
+}
+
+
+.wrapper-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.scanner-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* took help-tip css code from https://tutorialzine.com/2014/07/css-inline-help-tips */
+.help-tip {
+    position: relative;
+    text-align: center;
+    background-color: #BCDBEA;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    font-size: 10px;
+    line-height: 15px;
+    cursor: default;
+}
+
+.help-tip:before {
+    content: '?';
+    font-weight: bold;
+    color: #fff;
+}
+
+.help-tip:hover p {
+    display: block;
+    transform-origin: 100% 0%;
+    -webkit-animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.help-tip p {
+    display: none;
+    text-align: left;
+    background-color: #1E2021;
+    padding: 20px;
+    width: 300px;
+    position: absolute;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    right: -8px;
+    color: #FFF;
+    font-size: 13px;
+    line-height: 1.4;
+    margin-top: 10px;
+}
+
+.help-tip p:before {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-bottom-color: #1E2021;
+    right: 10px;
+    top: -12px;
+}
+
+.help-tip p:after {
+    width: 100%;
+    height: 40px;
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 0;
+}
+
+.sort-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sort-section label {
+    font-size: 14px;
+    margin-right: 5px;
+    color: white;
+}
+
+.sort-section select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    height: 30px;
+    font-size: 14px;
+}
+
+#start-scan {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: white;
+    color: black;
+    border: 1px solid black;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+}
+
+.video-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    overflow: auto;
+}
+
+.video-modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    text-align: center;
+}
+
+.video-close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.video-close:hover,
+.video-close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.video-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 400px;
+}
+
+#barcode-scanner {
+    border-radius: 8px;
+    width: 100%;
+    height: auto;
+    background: black;
+}
+
+.scan-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: red;
+    animation: scan-animation 2s infinite alternate ease-in-out;
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+    100% {
+        opacity: 100%;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+
+@keyframes scan-animation {
+    from {
+        transform: translateY(-50px);
+    }
+    to {
+        transform: translateY(50px);
+    }
+}
+.pagination {
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.page-item {
+    margin: 0 4px;
+}
+
+.page-link {
+    color: #333;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 8px 14px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.page-link:hover {
+    background-color: #dcdcdc;
+    text-decoration: none;
+}
+
+.page-item.active .page-link {
+    background-color: #333;
+    color: white;
+    border-color: #333;
+}

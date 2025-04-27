@@ -287,6 +287,40 @@ h2 {
     color: rgba(195, 195, 195, 0.8);
 }
 
+.listing-summary {
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #205698;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #dee2e6;
+}
+
+.listing-summary p {
+    margin: 0;
+}
+
+.sell-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.sell-button:hover {
+    background-color: #45a049;
+}
+
 
 @media (max-width: 768px) {
     .release-grid {
