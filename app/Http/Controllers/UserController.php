@@ -31,12 +31,15 @@ class UserController extends Controller
                 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/'
             ],
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'address' => 'required|string|min:10',
             'country_id' => 'required|exists:countries,country_id', 
         ], [
             'fname.regex' => 'First name must contain only letters.',
             'lname.regex' => 'Last name must contain only letters.',
             'username.regex' => 'Username must contain only letters and digits.',
-            'password.regex' => 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
+            'password.regex' => 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
+            'address.required' => 'Please enter your shipping address.',
+            'address.min' => 'Shipping address must be at least 10 characters long.'
         ]);
 
         $avatarPath = null;
@@ -47,6 +50,7 @@ class UserController extends Controller
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'avatar' => $avatarPath,
+            'address' => $request->address,
             'country_id' => $request->country_id,
         ]);
 

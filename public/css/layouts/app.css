@@ -217,7 +217,7 @@ html, body {
     object-fit: cover;
 }
 
-.cart-container, .cart-container-hover {
+.cart-icon-container, .cart-icon-container-hover {
     width: 70px;
     height: 70px;
     display: flex;
@@ -226,19 +226,41 @@ html, body {
     background-color: transparent;
     transition: background-color 0.3s ease-in-out;
     cursor: pointer;
+    position: relative;
 }
 
-.cart-container-hover {
+.cart-icon-container-hover {
     display: none;
 }
 
-.cart-class:hover .cart-container {
+.cart-class:hover .cart-icon-container {
     display: none;
 }
 
-.cart-class:hover .cart-container-hover {
+.cart-class:hover .cart-icon-container-hover {
     display: flex;
     background-color: #173e6e;
+}
+
+.cart-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #dc3545;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cart-badge:empty {
+    display: none;
 }
 
 .right-nav .avatar-btn {

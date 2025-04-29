@@ -22,6 +22,7 @@
             <p><strong>Last Name:</strong> {{ Auth::user()->lname }}</p>
             <p><strong>Email:</strong> {{ Auth::user()->email }}</p>
             <p><strong>Country:</strong> {{ Auth::user()->country->name }}</p>
+            <p><strong>Address:</strong> {{ Auth::user()->address }}</p>
             <p><strong>Member since:</strong> {{ Auth::user()->created_at->format('F d, Y') }}</p>
         </div>
     </div>

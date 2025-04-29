@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('comments')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('vinyl_id');
+            $table->string('status')->default('listed');
             $table->timestamps();
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->foreign('vinyl_id')->references('vinyl_id')->on('vinyls')->onDelete('cascade');

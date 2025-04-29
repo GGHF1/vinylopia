@@ -56,14 +56,45 @@
                     </form>
                 @endauth
 
-                <div class="cart-class">
-                    <div class="cart-container">
-                        <img src="{{  asset('images/elements/cart.png') }}" class="cart-icon" alt="Cart">
-                    </div>
-                    <div class="cart-container-hover">
-                        <img src="{{  asset('images/elements/cart-hover.png') }}" class="cart-icon" alt="Cart">
-                    </div>
-                </div>
+                                
+                @auth
+                    <!-- Cart with item count badge -->
+                    <a href="{{ route('cart') }}" class="cart-link">
+                        <div class="cart-class">
+                            <div class="cart-icon-container">
+                                <img src="{{ asset('images/elements/cart.png') }}" class="cart-icon" alt="Cart">
+                                @php
+                                    $cart = App\Models\Cart::where('user_id', Auth::id())->first();
+                                    $cartItemCount = 0;
+                                    if ($cart) {
+                                        $cartItemCount = App\Models\CartItem::where('cart_id', $cart->cart_id)->count();
+                                    }
+                                @endphp
+                                @if($cartItemCount > 0)
+                                    <span class="cart-badge">{{ $cartItemCount }}</span>
+                                @endif
+                            </div>
+                            <div class="cart-icon-container-hover">
+                                <img src="{{ asset('images/elements/cart-hover.png') }}" class="cart-icon" alt="Cart">
+                                @if($cartItemCount > 0)
+                                    <span class="cart-badge">{{ $cartItemCount }}</span>
+                                @endif
+                            </div>
+                        </div>
+                    </a>
+                @else
+                    <!-- Cart icon for guests (links to login) -->
+                    <a href="{{ route('login') }}" class="cart-link">
+                        <div class="cart-class">
+                            <div class="cart-icon-container">
+                                <img src="{{ asset('images/elements/cart.png') }}" class="cart-icon" alt="Cart">
+                            </div>
+                            <div class="cart-icon-container-hover">
+                                <img src="{{ asset('images/elements/cart-hover.png') }}" class="cart-icon" alt="Cart">
+                            </div>
+                        </div>
+                    </a>
+                @endauth
                 
                 <div class="mobile-drawer">
                     <div class="mobile-icon-container" id="mobile-icon">

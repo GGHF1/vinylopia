@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Vinyl;
 use App\Models\Listing;
+use App\Models\Cart;
+use App\Models\CartItem;
 
 class MainController extends Controller
 {
@@ -74,6 +76,7 @@ class MainController extends Controller
         $condition = $request->input('condition');
 
         $query = Listing::query();
+        $query->where('status', Listing::STATUS_LISTED);
         
         // filter options
         if ($genre) {
@@ -189,6 +192,88 @@ class MainController extends Controller
         $listing->save();
         
         return redirect()->route('marketplace');
+    }
+
+    public function addToCart(Request $request)
+    {
+        $request->validate([
+            'listing_id' => 'required|exists:listings,listing_id',
+        ]);
+        
+        $listing = Listing::findOrFail($request->listing_id);
+        
+        // Find or create the user's cart
+        $cart = Cart::firstOrCreate([
+            'user_id' => Auth::id()
+        ]);
+        
+        // Check if the item already exists in the cart
+        $existingItem = CartItem::where('cart_id', $cart->cart_id)
+            ->where('listing_id', $listing->listing_id)
+            ->first();
+            
+        if ($existingItem) {
+            // Item already in cart, return with a message
+            return back()->with('warning', 'This item is already in your cart.');
+        } else {
+            // Add the item to the cart
+            CartItem::create([
+                'cart_id' => $cart->cart_id,
+                'listing_id' => $listing->listing_id,
+                'price' => $listing->price,
+            ]);
+            
+            return back()->with('success', 'Item added to your cart.');
+        }
+    }
+    
+    public function cart()
+    {
+        // Get the user's cart with items, listings, and related vinyls and sellers
+        $cart = Cart::where('user_id', Auth::id())
+            ->with(['items.listing.vinyl', 'items.listing.user'])
+            ->first();
+            
+        // Group cart items by seller
+        $itemsBySellerMap = collect();
+        
+        if ($cart && $cart->items->count() > 0) {
+            // Group items by seller_id
+            $itemsBySeller = $cart->items->groupBy(function($item) {
+                return $item->listing->user_id;
+            });
+            
+            // Transform into a better format for the view
+            $itemsBySellerMap = $itemsBySeller->map(function($items, $sellerId) {
+                // Get the first item to extract seller info
+                $firstItem = $items->first();
+                
+                return [
+                    'seller' => $firstItem->listing->user,
+                    'items' => $items,
+                    'subtotal' => $items->sum('price'),
+                    'shipping' => 10.00, // Default shipping cost, could be calculated based on seller policy
+                ];
+            });
+        }
+        
+        return view('cart', [
+            'cart' => $cart,
+            'itemsBySeller' => $itemsBySellerMap,
+            'totalAmount' => $itemsBySellerMap->sum('subtotal') + $itemsBySellerMap->sum('shipping'),
+        ]);
+    }
+    
+    public function removeFromCart($cartItemId)
+    {
+        $cartItem = CartItem::where('cart_item_id', $cartItemId)
+            ->whereHas('cart', function($query) {
+                $query->where('user_id', Auth::id());
+            })->firstOrFail();
+            
+        $cartItem->delete();
+        
+        return back()->with('success', 'Item removed from your cart.');
     }
 
 }

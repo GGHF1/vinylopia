@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('avatar')->nullable();
+            $table->text('address');
             $table->unsignedBigInteger('country_id');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

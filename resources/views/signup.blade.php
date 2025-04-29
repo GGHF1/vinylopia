@@ -39,6 +39,10 @@
                 <label for="password_confirmation">Confirm Password*</label>
             </div>
             <div class="form-group">
+                <input type="text" id="address" name="address" placeholder=" " required>
+                <label for="address">Shipping Address*</label>
+            </div>
+            <div class="form-group">
                 <select name="country_id" id="country" placeholder=" " required>
                     <option value="" disabled selected></option>
                     @foreach($countries as $country)

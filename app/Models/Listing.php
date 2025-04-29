@@ -17,9 +17,15 @@ class Listing extends Model
         'comments',
         'user_id',
         'vinyl_id',
+        'status',
         'created_at',
         'updated_at'
     ];
+
+    // Define status constants
+    const STATUS_LISTED = 'listed';
+    const STATUS_PLACED = 'placed';
+    const STATUS_SOLD = 'sold';
 
     public function vinyl()
     {
@@ -28,5 +34,23 @@ class Listing extends Model
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // Check if listing is available for purchase
+    public function isAvailable()
+    {
+        return $this->status === self::STATUS_LISTED;
+    }
+
+    // Get status label for display
+    public function getStatusLabel()
+    {
+        $labels = [
+            self::STATUS_LISTED => 'Available',
+            self::STATUS_PLACED => 'Order Pending',
+            self::STATUS_SOLD => 'Sold'
+        ];
+        
+        return $labels[$this->status] ?? ucfirst($this->status);
     }
 }

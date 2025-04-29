@@ -77,7 +77,11 @@
                                     </div>
                                     <div class="listing-actions">
                                         <div class="price">€{{ number_format($listing->price, 2) }}</div>
-                                        <button class="add-to-cart-btn">Add to Cart</button>
+                                        <form action="{{ route('cart.add') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="listing_id" value="{{ $listing->listing_id }}">
+                                            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
