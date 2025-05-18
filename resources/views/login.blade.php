@@ -11,7 +11,7 @@
         <a href="{{ route('home') }}">
             <img src="{{ asset('images/elements/logo.png') }}" alt="Logo" class="container-logo">
         </a>
-        <h1>Sign in to Vinylopia to continue</h1>
+        <h1>Sign in to continue</h1>
         <form action="{{ route('login') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
@@ -22,7 +22,15 @@
                 <input type="password" id="password" name="password" placeholder=" " required>
                 <label for="password">Password*</label>
             </div>
+            <div class="flex-row">
+      <div>
+      <input type="checkbox">
+      <label>Remember me </label>
+      </div>
+      <span class="span">Forgot password?</span>
+    </div>
             <button type="submit" class="btn">Continue</button>
         </form>
+        <p class="p">Don't have an account? <a href="{{ route('signup') }}" class="span">Sign Up</a></p>
     </div>
 @endsection

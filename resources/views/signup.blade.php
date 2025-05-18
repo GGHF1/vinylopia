@@ -38,11 +38,11 @@
                 <input type="password" id="password_confirmation" name="password_confirmation" placeholder=" " required>
                 <label for="password_confirmation">Confirm Password*</label>
             </div>
-            <div class="form-group">
+            <div class="form-group full-width">
                 <input type="text" id="address" name="address" placeholder=" " required>
                 <label for="address">Shipping Address*</label>
             </div>
-            <div class="form-group">
+            <div class="form-group full-width">
                 <select name="country_id" id="country" placeholder=" " required>
                     <option value="" disabled selected></option>
                     @foreach($countries as $country)
@@ -53,6 +53,7 @@
             </div>
             <button type="submit" class="btn">Register</button>
         </form>
+        <p class="p">Already have an account? <a href="{{ route('login') }}" class="span">Log In</a></p>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

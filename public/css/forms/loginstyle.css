@@ -16,13 +16,14 @@ h1 {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 400px;
+    height: auto;
     text-align: center;
     margin: 0 auto;
     margin-top: 60px;
 }
 
 .container-logo {
-    width: 150px;
+    width: 200px;
     margin-bottom: 20px;
 }
 
@@ -90,4 +91,35 @@ input::placeholder {
 
 .header{
     display: none;
+}
+
+.p {
+    text-align: center;
+    color: black;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.flex-row > div > label {
+    font-size: 14px;
+    color: black;
+    font-weight: 400;
+}
+
+.span {
+    font-size: 14px;
+    margin-left: 5px;
+    color: #2d79f3;
+    font-weight: 500;
+    cursor: pointer;
 }
