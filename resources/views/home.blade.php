@@ -12,5 +12,8 @@
         <div class="gallery-container">
             <h1>IMGs will be here soon</h1>
         </div>
+        <div class="section-container">
+            <h1>TOP RELEASES</h1>
+        </div>
     </div>
 @endsection

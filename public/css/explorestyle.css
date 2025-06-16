@@ -58,6 +58,10 @@ body {
     gap: 5px;
 }
 
+.search-text{
+    color: white;
+}
+
 /* took help-tip css code from https://tutorialzine.com/2014/07/css-inline-help-tips */
 .help-tip {
     position: relative;

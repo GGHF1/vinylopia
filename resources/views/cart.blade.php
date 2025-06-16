@@ -158,7 +158,7 @@
                                     
                                     <button type="submit" class="checkout-button" data-seller-index="{{ $sellerIndex }}">
                                         <span class="lock-icon">🔒</span>
-                                        Place Order & Pay Now
+                                        Place Order
                                     </button>
                                 </form>
                             </div>
@@ -199,7 +199,6 @@
                         });
                     });
                     
-                                        // Update this code in your cart.blade.php JavaScript section
                     checkoutButtons.forEach(button => {
                         button.closest('form').addEventListener('submit', function(e) {
                             e.preventDefault(); // Prevent form from submitting immediately

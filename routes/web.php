@@ -6,7 +6,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 
-
 Route::get('/', [MainController::class, 'home'])->name('home');
 
 Route::get('/signup', [UserController::class, 'signupForm'])->name('signup');

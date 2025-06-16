@@ -81,15 +81,19 @@
                         <p>No copies currently for sale</p>
                     @endif
                 </div>
-                <a href="{{ route('listing.create', ['vinyl_id' => $vinyl->vinyl_id]) }}" class="sell-button">Sell Your Copy</a>
-                <button class="buy-button">Buy Now</button>
-                <button class="wishlist-button">Add to Wishlist</button>
-                <a href="{{ $vinyl->spotify_link }}" target="_blank">
-                    <i class="fa-brands fa-spotify"></i>
-                </a>
-                <a href="{{ $vinyl->itunes_link }}" target="_blank">
-                    <i class="fa-brands fa-itunes-note"></i>
-                </a>
+                <div class="button-group">
+                    <a href="{{ route('listing.create', ['vinyl_id' => $vinyl->vinyl_id]) }}" class="sell-button">Sell Your Copy</a>
+                    <button class="buy-button">Buy Now</button>
+                    <button class="wishlist-button">Add to Wishlist</button>
+                </div>
+                <div class="streaming-links">
+                    <a href="{{ $vinyl->spotify_link }}" target="_blank" class="spotify-link">
+                        <img src="{{ asset('images/elements/spotify.png') }}" alt="Spotify" class="spotify">
+                    </a>
+                    <a href="{{ $vinyl->itunes_link }}" target="_blank" class="apple-music-link">
+                        <img src="{{ asset('images/elements/apple-music.png') }}" alt="Apple Music" class="apple-music">
+                    </a>
+                </div>
             </div>
         </div>
 

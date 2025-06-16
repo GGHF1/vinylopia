@@ -274,7 +274,7 @@ html, body {
 
 .user-avatar{
     width: 40px;
-    height: auto;
+    height: 40px;
     object-fit: cover;
     border-radius: 50%;
     background-color: white;

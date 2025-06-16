@@ -52,6 +52,13 @@
                 <label for="country">Country*</label>
             </div>
             <button type="submit" class="btn">Register</button>
+            @if ($errors->any())
+                <div class="error-messages">
+                    @foreach ($errors->all() as $error)
+                        <p class="error-message">{{ $error }}</p>
+                    @endforeach
+                </div>
+            @endif
         </form>
         <p class="p">Already have an account? <a href="{{ route('login') }}" class="span">Log In</a></p>
     </div>

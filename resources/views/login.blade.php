@@ -23,13 +23,17 @@
                 <label for="password">Password*</label>
             </div>
             <div class="flex-row">
-      <div>
-      <input type="checkbox">
-      <label>Remember me </label>
-      </div>
-      <span class="span">Forgot password?</span>
-    </div>
+                <div>
+                <input type="checkbox">
+                <label>Remember me </label>
+                </div>
+                <span class="span">Forgot password?</span>
+            </div>
             <button type="submit" class="btn">Continue</button>
+            
+            @if ($errors->has('login'))
+                <p class="error-message">{{ $errors->first('login') }}</p>
+            @endif
         </form>
         <p class="p">Don't have an account? <a href="{{ route('signup') }}" class="span">Sign Up</a></p>
     </div>

@@ -72,7 +72,7 @@ class UserController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('/');
         } else {
-            return redirect('/login')->with('error', 'Invalid credentials');
+            return redirect('/login')->withErrors(['login' => 'Invalid username or password.']);
         }
     }
 

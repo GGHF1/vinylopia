@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Profile')
+@section('title', 'My Profile')
 
 @section('head')
     <link rel="stylesheet" href="{{ asset('css/profilestyle.css') }}">
@@ -12,21 +12,35 @@
             <img src="{{ asset('images/elements/logo.png') }}" alt="Vinylopia Logo" class="logo">
         </a>
     </div>
-    <div class="profile-container">
-        <div class="profile-left">
-            <img src="{{ asset(Auth::user()->avatar ? 'storage/' . Auth::user()->avatar : 'images/avatars/default-avatar.png') }}" alt="Avatar" class="avatar" id="avatar-image">
-        </div>
-        <div class="profile-right">
-            <h2 class="username">{{ Auth::user()->username }}</h2>
-            <p><strong>First Name:</strong> {{ Auth::user()->fname }}</p>
-            <p><strong>Last Name:</strong> {{ Auth::user()->lname }}</p>
-            <p><strong>Email:</strong> {{ Auth::user()->email }}</p>
-            <p><strong>Country:</strong> {{ Auth::user()->country->name }}</p>
-            <p><strong>Address:</strong> {{ Auth::user()->address }}</p>
-            <p><strong>Member since:</strong> {{ Auth::user()->created_at->format('F d, Y') }}</p>
+
+    <div class="container">
+        <div class="profile-card">
+            <div class="profile-top">
+                <div class="avatar-section">
+                    <img src="{{ asset(Auth::user()->avatar ? 'storage/' . Auth::user()->avatar : 'images/avatars/default-avatar.png') }}" alt="Avatar" class="avatar" id="avatar-image">
+                    <h2 class="username">{{ Auth::user()->username }}</h2>
+                    <p class="member-since">Member since {{ Auth::user()->created_at->format('F Y') }}</p>
+                </div>
+                <div class="profile-actions">
+                    <a href="{{ route('orders') }}" class="profile-btn">Order History</a>
+                    <a href="{{ route('listing.create') }}" class="profile-btn">List a Vinyl</a>
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <h3 class="section-title">Personal Information</h3>
+                <div class="info-grid">
+                    <div><strong>First Name:</strong> {{ Auth::user()->fname }}</div>
+                    <div><strong>Last Name:</strong> {{ Auth::user()->lname }}</div>
+                    <div><strong>Email:</strong> {{ Auth::user()->email }}</div>
+                    <div><strong>Country:</strong> {{ Auth::user()->country->name }}</div>
+                    <div><strong>Address:</strong> {{ Auth::user()->address }}</div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Avatar Modal -->
     <div id="avatarModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -46,16 +60,17 @@
             </form>
             <form action="{{ route('avatar.delete') }}" method="post" class="delete-form">
                 @csrf
-                <button type="submit" class="delete-btn">Delete Avatar</button>
+                <div class="button-container">
+                    <button type="submit" class="delete-btn">Delete Avatar</button>
+                </div>
             </form>
         </div>
     </div>
-    <script>
-        // profile avatar modal
-        var modal = document.getElementById("avatarModal");
 
+    <script>
+        var modal = document.getElementById("avatarModal");
         var img = document.getElementById("avatar-image");
-        img.onclick = function(){
+        img.onclick = function() {
             modal.style.display = "block";
         }
 
@@ -75,17 +90,12 @@
         function previewAvatar(event) {
             var file = event.target.files[0];
             var reader = new FileReader();
-
             reader.onload = function(e) {
                 document.getElementById('avatar-preview-img').src = e.target.result;
             }
-
-            if (file) {
-                reader.readAsDataURL(file);
-            }
+            if (file) reader.readAsDataURL(file);
         }
 
-        // remove img for preview if modal is closed
         function resetAvatarPreview() {
             document.getElementById('avatar-preview-img').src = "{{ asset(Auth::user()->avatar ? 'storage/' . Auth::user()->avatar : 'images/avatars/default-avatar.png') }}";
             document.getElementById('avatar-upload-modal').value = "";

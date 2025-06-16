@@ -385,6 +385,7 @@ body {
 .shipping-address-section {
     margin-bottom: 15px;
     margin-top: 15px;
+    padding: 15px;
 }
 
 .shipping-address-section h3 {
